@@ -11,9 +11,9 @@ export const StaticStyle = {
         text: 'rgb(235, 235, 235)',
         textDark: 'rgb(22, 22, 22)',
         active: 'rgb(150, 150, 150)',
-        hover: 'rgb(119, 139, 255)',
-        core: 'rgb(219, 158, 44)',
-        coreDark: 'rgb(136, 98, 27)',
+        core: 'rgb(86, 104, 205)',
+        hover: 'rgb(219, 158, 44)',
+        coreDark: 'rgb(81, 92, 154)',
         outlineDark: 'rgb(63, 63, 63)',
         transparentDark: 'rgba(0,0,0,0.6)'
     },

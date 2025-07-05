@@ -4,7 +4,9 @@ import { router } from 'expo-router'
 
 export var routes = {
     landing: '/',
-    libraryDetails: '/library',
+    seriesList: '/seriesList',
+    bookList: '/bookList',
+    bookDetails: '/bookDetails',
     replace: (target, params) => {
         if (!params) {
             return router.replace(target)

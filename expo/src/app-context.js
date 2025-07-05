@@ -42,27 +42,17 @@ export function useAppContext() {
 
 export function AppContextProvider(props) {
     const [apiError, setApiError] = React.useState(null)
-    const [apiClient, setApiClient] = React.useState(null)
-    const [message, setMessage] = React.useState("All is well")
-    const [session, setSession] = React.useState(null)
-    const [isAdmin, setIsAdmin] = React.useState(false)
-    const [displayName, setDisplayName] = React.useState(null)
-    const [isLoading, setIsLoading] = React.useState(true)
-
-    React.useEffect(() => {
-        if (!apiClient) {
-            setIsLoading(false)
-            setApiClient(new ApiClient({
-                onApiError: onApiError
-            }))
-        }
-    })
-
     const onApiError = (err) => {
         if (!apiError) {
             setApiError(err)
         }
     }
+    const [apiClient, setApiClient] = React.useState(new ApiClient({ onApiError: onApiError }))
+    const [message, setMessage] = React.useState("All is well")
+    const [session, setSession] = React.useState(null)
+    const [isAdmin, setIsAdmin] = React.useState(false)
+    const [displayName, setDisplayName] = React.useState(null)
+    const [isLoading, setIsLoading] = React.useState(true)
 
     if (apiError) {
         return (

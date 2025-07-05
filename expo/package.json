@@ -21,7 +21,8 @@
     "react-dom": "19.0.0",
     "react-native": "npm:react-native-tvos@0.79.5-0",
     "react-native-web": "^0.20.0",
-    "use-debounce": "^10.0.5"
+    "use-debounce": "^10.0.5",
+    "expo-image": "~2.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

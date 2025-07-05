@@ -8,6 +8,8 @@ export class ApiClient {
         this.apiErrorSent = false
         let self = this
 
+        this.getPageImageSource = this.getPageImageSource.bind(this)
+
         this.httpClient = axios.create({
             baseURL: this.webApiUrl,
             headers: {
@@ -73,8 +75,50 @@ export class ApiClient {
         return this.get("/libraries")
     }
 
+    getSeriesList(libraryId) {
+        const payload = {
+            "condition": {
+                "allOf": [{
+                    "libraryId": {
+                        "operator": "is",
+                        "value": libraryId
+                    }
+                }]
+            }
+        }
+        return this.post(`/series/list`, payload)
+    }
+
+    getBookList(seriesId) {
+        const payload = {
+            "condition": {
+                "allOf": [{
+                    "seriesId": {
+                        "operator": "is",
+                        "value": seriesId
+                    }
+                }]
+            }
+        }
+        return this.post(`/books/list`, payload)
+    }
+
+    getPageList(bookId) {
+        return this.get(`books/${bookId}/pages`)
+    }
+
+    getPageImageSource(bookId, pageNumber) {
+        return {
+            uri: `${this.webApiUrl}/books/${bookId}/pages/${pageNumber}`,
+            method: 'GET',
+            headers: {
+                'X-API-Key': this.apiKey
+            }
+        }
+    }
+
     debug() {
-        console.log({ baseURL: this.baseURL, apiKey: this.apiKey })
+        console.log({ webApiUrl: this.webApiUrl, apiKey: this.apiKey })
     }
 }
 

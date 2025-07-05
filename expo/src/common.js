@@ -10,9 +10,10 @@ import {
     useRouter
 } from 'expo-router'
 
+import { Image } from 'expo-image'
+
 import {
     Dimensions,
-    Image,
     Linking,
     Modal,
     Platform,

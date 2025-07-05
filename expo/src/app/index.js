@@ -1,5 +1,5 @@
 import C from '../common'
-export default function LandingPage() {
+export default function LibraryListPage() {
     const { session, routes, apiClient } = C.useAppContext()
 
     const [libraryList, setLibraryList] = C.React.useState(null)
@@ -7,7 +7,6 @@ export default function LandingPage() {
     C.React.useEffect(() => {
         if (!libraryList && apiClient) {
             apiClient.getLibraryList().then((response) => {
-                console.log({ response })
                 setLibraryList(response)
             })
         }
@@ -22,7 +21,7 @@ export default function LandingPage() {
             <C.SnowGrid items={libraryList} renderItem={(item) => {
                 return <C.SnowTextButton
                     title={item.name}
-                    onPress={routes.func(routes.libraryDetails, { libraryId: item.id })} />
+                    onPress={routes.func(routes.seriesList, { libraryId: item.id })} />
             }} />
         </C.FillView>
     )
