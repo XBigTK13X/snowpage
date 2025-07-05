@@ -12,9 +12,13 @@ export default function LibraryListPage() {
         }
     })
 
+    console.log("Loading list")
+
     if (!libraryList) {
         return <C.SnowText>Loading library list...</C.SnowText>
     }
+
+    console.log("Loaded")
 
     return (
         <C.FillView>

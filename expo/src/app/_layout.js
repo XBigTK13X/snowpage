@@ -1,15 +1,16 @@
 import C from '../common'
 import { AppContextProvider } from '../app-context'
+import { StaticStyle } from '../snow-style'
 import { SystemBars } from "react-native-edge-to-edge";
 
 const styles = {
     safeArea: {
         padding: 30,
-        backgroundColor: C.StaticStyle.color.background,
-        flex: 1
+        backgroundColor: C.StaticStyle.color.background
     },
     header: {
-        width: '100%'
+        width: '100%',
+        height: 100
     },
     hr: {
         borderBottomColor: C.StaticStyle.color.coreDark,
@@ -23,9 +24,9 @@ const styles = {
 function SafeAreaView(props) {
     if (C.isWeb) {
         return (
-            <C.View style={styles.safeArea}>
+            <C.FillView style={styles.safeArea}>
                 {props.children}
-            </C.View>
+            </C.FillView>
         )
     }
     return (
@@ -36,20 +37,14 @@ function SafeAreaView(props) {
 }
 
 function Header() {
-    const { isAdmin, displayName, routes } = C.useAppContext()
+    const { routes } = C.useAppContext()
 
-    if (!displayName) {
-        return ''
-    }
     return (
         <C.View style={styles.header}>
-            <C.SnowGrid>
+            <C.SnowGrid itemsPerRow={3} scroll={false}>
                 <C.SnowTextButton title="Home" onPress={routes.func(routes.landing)} />
-                <C.SnowTextButton title="Sign Out" onPress={routes.func(routes.signOut)} />
-                {isAdmin ? <C.SnowTextButton title="Admin" onPress={routes.func(routes.admin.dashboard)} /> : null}
-                <C.SnowTextButton title={`Info [${displayName}]`} onPress={routes.func(routes.info)} />
             </C.SnowGrid>
-            <C.View style={styles.hr} />
+            <C.FillView style={styles.hr} />
         </C.View>
     )
 }

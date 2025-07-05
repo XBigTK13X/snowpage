@@ -3,10 +3,12 @@ import {
     View,
     FlatList
 } from 'react-native'
+import
+FillView from './fill-view'
 
 const styles = {
     grid: {
-        padding: 5
+        marginBottom: 10
     },
     mainGrid: {
         flex: 1
@@ -56,7 +58,7 @@ export function SnowGrid(props) {
         renderItem = props.renderItem
     }
     return (
-        <View style={gridStyle}>
+        <FillView style={gridStyle}>
             <FlatList
                 scrollEnabled={props.scroll !== false}
                 disableVirtualization={props.substantial}
@@ -66,13 +68,13 @@ export function SnowGrid(props) {
                 data={items}
                 renderItem={({ item, index, separators }) => {
                     return (
-                        <View key={index} style={itemStyle}>
+                        <FillView key={index} style={itemStyle}>
                             {renderItem(item, index)}
-                        </View>
+                        </FillView>
                     )
                 }}
             />
-        </View>
+        </FillView>
     )
 }
 

@@ -8,7 +8,9 @@ export class ApiClient {
         this.apiErrorSent = false
         let self = this
 
-        this.getPageImageSource = this.getPageImageSource.bind(this)
+        this.imageSource = this.imageSource.bind(this)
+        this.getPage = this.getPage.bind(this)
+        this.getSeriesThumbnail = this.getSeriesThumbnail.bind(this)
 
         this.httpClient = axios.create({
             baseURL: this.webApiUrl,
@@ -67,6 +69,18 @@ export class ApiClient {
         }
     }
 
+    imageSource(webPath) {
+        const uri = `${this.webApiUrl}${webPath}`
+        console.log({ uri })
+        return {
+            uri: uri,
+            method: 'GET',
+            headers: {
+                'X-API-Key': this.apiKey
+            }
+        }
+    }
+
     isAuthenticated() {
         return true
     }
@@ -89,6 +103,10 @@ export class ApiClient {
         return this.post(`/series/list`, payload)
     }
 
+    getSeriesThumbnail(seriesId) {
+        return this.imageSource(`/series/${seriesId}/thumbnail`)
+    }
+
     getBookList(seriesId) {
         const payload = {
             "condition": {
@@ -103,18 +121,16 @@ export class ApiClient {
         return this.post(`/books/list`, payload)
     }
 
+    getBookThumbnail(bookId) {
+        return this.imageSource(`/books/${bookId}/thumbnail`)
+    }
+
     getPageList(bookId) {
         return this.get(`books/${bookId}/pages`)
     }
 
-    getPageImageSource(bookId, pageNumber) {
-        return {
-            uri: `${this.webApiUrl}/books/${bookId}/pages/${pageNumber}`,
-            method: 'GET',
-            headers: {
-                'X-API-Key': this.apiKey
-            }
-        }
+    getPage(bookId, pageNumber) {
+        return this.imageSource(`/books/${bookId}/pages/${pageNumber}`)
     }
 
     debug() {
