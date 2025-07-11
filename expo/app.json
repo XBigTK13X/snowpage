@@ -40,8 +40,9 @@
       },
       "bundleIdentifier": "com.simplepathstudios.snowpage"
     },
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "name": "snowpage",
-    "slug": "snowpage"
+    "slug": "snowpage",
+    "scheme": "com.simplepathstudios.snowpage"
   }
 }

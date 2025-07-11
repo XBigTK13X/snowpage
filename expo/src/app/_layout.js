@@ -4,10 +4,6 @@ import { StaticStyle } from '../snow-style'
 import { SystemBars } from "react-native-edge-to-edge";
 
 const styles = {
-    safeArea: {
-        padding: 30,
-        backgroundColor: C.StaticStyle.color.background
-    },
     header: {
         width: '100%',
         height: 100
@@ -17,23 +13,10 @@ const styles = {
         borderBottomWidth: 2,
     },
     page: {
-        flex: 1
+        flex: 1,
+        padding: 30,
+        backgroundColor: C.StaticStyle.color.background
     }
-}
-
-function SafeAreaView(props) {
-    if (C.isWeb) {
-        return (
-            <C.FillView style={styles.safeArea}>
-                {props.children}
-            </C.FillView>
-        )
-    }
-    return (
-        <C.TVFocusGuideView style={styles.safeArea}>
-            {props.children}
-        </C.TVFocusGuideView>
-    )
 }
 
 function Header() {
@@ -49,26 +32,20 @@ function Header() {
     )
 }
 
-function MessageDisplay() {
-    // This is mainly a debugging helper.
-    // Not sure if there's any reason to keep it in the deployed app
-    return null
-    const { message } = C.useAppContext()
-    return <C.SnowText style={{ width: C.getWindowWidth() }}>Message: {message}</C.SnowText>
-}
-
 export default function RootLayout() {
     if (C.isAndroid) {
         SystemBars.setHidden(true)
     }
+    const Wrapper = C.isTV ? C.TVFocusGuideView : C.View
     return (
-        <SafeAreaView>
-            <AppContextProvider>
-                <C.View style={styles.page}>
+        <AppContextProvider>
+            <C.View style={styles.page}>
+                <Wrapper>
                     <Header />
                     <C.Slot />
-                </C.View>
-            </AppContextProvider>
-        </SafeAreaView>
+                </Wrapper>
+            </C.View>
+        </AppContextProvider>
+
     )
 }

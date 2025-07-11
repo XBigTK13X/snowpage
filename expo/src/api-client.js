@@ -36,35 +36,35 @@ export class ApiClient {
             if (params) {
                 queryParams = { params: params }
             }
-            return this.httpClient
+            return self.httpClient
                 .get(url, queryParams)
                 .then((response) => {
                     return response.data
                 })
                 .catch((err) => {
-                    this.handleError(err)
+                    self.handleError(err)
                 })
         }
 
         this.post = async (url, payload) => {
-            return this.httpClient
+            return self.httpClient
                 .post(url, payload)
                 .then((response) => {
                     return response.data
                 })
                 .catch((err) => {
-                    this.handleError(err)
+                    self.handleError(err)
                 })
         }
 
         this.delete = async (url) => {
-            return this.httpClient
+            return self.httpClient
                 .delete(url)
                 .then((response) => {
                     return response.data
                 })
                 .catch((err) => {
-                    this.handleError(err)
+                    self.handleError(err)
                 })
         }
     }
@@ -86,6 +86,7 @@ export class ApiClient {
     }
 
     getLibraryList() {
+        console.log({ client: this.httpClient })
         return this.get("/libraries")
     }
 

@@ -1,24 +1,23 @@
 import C from '../common'
 export default function LibraryListPage() {
-    const { session, routes, apiClient } = C.useAppContext()
+    const { routes, apiClient } = C.useAppContext()
 
     const [libraryList, setLibraryList] = C.React.useState(null)
 
     C.React.useEffect(() => {
         if (!libraryList && apiClient) {
             apiClient.getLibraryList().then((response) => {
+                console.log({ response })
                 setLibraryList(response)
             })
         }
     })
 
-    console.log("Loading list")
+    console.log({ libraryList })
 
     if (!libraryList) {
         return <C.SnowText>Loading library list...</C.SnowText>
     }
-
-    console.log("Loaded")
 
     return (
         <C.FillView>

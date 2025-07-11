@@ -22,14 +22,7 @@ const styles = {
 const AppContext = React.createContext({
     config: null,
     routes: null,
-    session: null,
-    isLoading: false,
-    apiClient: null,
-    isAdmin: false,
-    displayName: null,
-    message: null,
-    setMessageDisplay: (message) => null,
-    useStorageStage: () => null,
+    apiClient: null
 });
 
 export function useAppContext() {
@@ -47,18 +40,20 @@ export function AppContextProvider(props) {
             setApiError(err)
         }
     }
-    const [apiClient, setApiClient] = React.useState(new ApiClient({ onApiError: onApiError }))
-    const [message, setMessage] = React.useState("All is well")
-    const [session, setSession] = React.useState(null)
-    const [isAdmin, setIsAdmin] = React.useState(false)
-    const [displayName, setDisplayName] = React.useState(null)
-    const [isLoading, setIsLoading] = React.useState(true)
+    const [apiClient, setApiClient] = React.useState(null)
+
+    React.useEffect(() => {
+        if (!apiClient) {
+            setApiClient(new ApiClient({ onApiError }))
+        }
+    })
+
 
     if (apiError) {
         return (
             <Modal navigationBarTranslucent statusBarTranslucent>
                 <View style={styles.prompt}>
-                    <SnowText>Unable to communicate with Snowstream.</SnowText>
+                    <SnowText>Unable to communicate with Snowpage.</SnowText>
                     <SnowText>Check if your Wi-Fi is disconnected, ethernet unplugged, or if the Snowstream server is down.</SnowText>
                     <View>
                         <SnowGrid itemsPerRow={2}>
@@ -73,20 +68,14 @@ export function AppContextProvider(props) {
     const appContext = {
         config,
         routes,
-        session,
-        isLoading,
-        apiClient,
-        isAdmin,
-        displayName,
-        message,
-        setMessageDisplay: setMessage
+        apiClient
     }
 
     return (
         <AppContext.Provider
-            value={appContext}>
-            {props.children}
-        </AppContext.Provider>
+            value={appContext}
+            children={props.children}
+        />
     );
 }
 
