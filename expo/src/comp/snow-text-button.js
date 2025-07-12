@@ -3,16 +3,13 @@ import React from 'react'
 
 import { TouchableOpacity } from 'react-native';
 import SnowText from './snow-text'
-import { StaticStyle, DynamicStyle } from '../snow-style'
-
-
-const dyn = DynamicStyle()
+import { StaticStyle } from '../snow-style'
 
 const styles = {
     wrapper: {
         margin: 10,
         padding: 10,
-        height: dyn.textButton.wrapper.normal.height,
+        height: StaticStyle.textButton.wrapper.normal.height,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
@@ -31,14 +28,14 @@ const styles = {
         opacity: 0.5
     },
     text: {
-        fontSize: dyn.textButton.fontSize.normal,
+        fontSize: StaticStyle.textButton.fontSize.normal,
         padding: 0,
         margin: 0,
         textAlign: 'center',
-        height: dyn.textButton.textBox.height
+        height: StaticStyle.textButton.textBox.height
     },
     smallText: {
-        fontSize: dyn.textButton.fontSize.small
+        fontSize: StaticStyle.textButton.fontSize.small
     }
 }
 

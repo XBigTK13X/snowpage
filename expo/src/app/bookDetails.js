@@ -5,26 +5,47 @@ export default function BookDetailsPage() {
     const localParams = C.useLocalSearchParams()
     const [pages, setPages] = C.React.useState(null)
     const [pageNumber, setPageNumber] = C.React.useState(1)
+    const pageNumberRef = C.React.useRef(1)
+    const maxPageNumberRef = C.React.useRef(2)
 
-    const [lastEventType, setLastEventType] = C.React.useState('');
+    C.React.useEffect(() => {
+        if (!pages) {
+            apiClient.getPageList(localParams.bookId).then((response) => {
+                setPages(response)
+                maxPageNumberRef.current = response.length
+            })
+
+        }
+    })
 
     const myTVEventHandler = evt => {
-        console.log({ evt })
-        setLastEventType(evt.eventType);
+        const page = pageNumberRef.current
+        const max = maxPageNumberRef.current
+        if (evt.eventType === 'right' || evt.eventType === 'select') {
+            if (page < max) {
+                pageNumberRef.current += 1
+                setPageNumber(page + 1)
+            }
+            else {
+                routes.back()
+            }
+        }
+        else if (evt.eventType === 'left') {
+            if (page > 1) {
+                pageNumberRef.current -= 1
+                setPageNumber(page - 1)
+            }
+            else {
+                routes.back()
+            }
+        }
     };
 
 
     if (C.isTV) {
         useTVEventHandler(myTVEventHandler);
     }
-    C.React.useEffect(() => {
-        if (!pages) {
-            apiClient.getPageList(localParams.bookId).then((response) => {
-                setPages(response)
-            })
 
-        }
-    })
 
     if (!pages) {
         return <C.SnowText>Loading pages...</C.SnowText>
@@ -33,22 +54,16 @@ export default function BookDetailsPage() {
     const imageSource = apiClient.getPage(localParams.bookId, pageNumber)
 
     return (
-        <C.Modal style={{ flex: 1, backgroundColor: 'black' }}>
-            <C.TouchableOpacity
-                transparent
-
-                onPress={() => {
-                    setPageNumber((prev) => { return prev + 1 })
+        <C.Modal
+            style={{ flex: 1, backgroundColor: 'black' }}
+            onRequestClose={() => { routes.back() }} >
+            < C.Image
+                style={{
+                    flex: 1,
+                    backgroundColor: 'black'
                 }}
-                style={{ flex: 1, backgroundColor: 'black' }}>
-                <C.Image
-                    style={{
-                        flex: 1,
-                        backgroundColor: 'black'
-                    }}
-                    contentFit="contain"
-                    source={imageSource} />
-            </C.TouchableOpacity>
-        </C.Modal>
+                contentFit="contain"
+                source={imageSource} />
+        </ C.Modal>
     )
 }

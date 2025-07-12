@@ -1,8 +1,19 @@
 import { Platform, Dimensions } from 'react-native';
 
+const isAndroid = Platform.OS === 'android'
+
 const uhd = {
     width: 3840,
     height: 2160
+}
+
+let scaleMultiplier = 0.75
+if (Platform.isTV) {
+    scaleMultiplier = 0.5
+}
+
+let scaled = (input) => {
+    return Math.round(input * scaleMultiplier)
 }
 
 export const StaticStyle = {
@@ -36,83 +47,59 @@ export const StaticStyle = {
     surface: {
         height: () => { return Platform.isTV ? uhd.height : Dimensions.get('window').height },
         width: () => { return Platform.isTV ? uhd.width : Dimensions.get('window').width }
-    }
-}
-
-export const DynamicStyle = () => {
-    let scaleMultiplier = 0.75
-    if (Platform.isTV) {
-        scaleMultiplier = 0.5
-    }
-
-    let scaled = (input) => {
-        return Math.round(input * scaleMultiplier)
-    }
-
-    let style = {
-        imageButton: {
-            wrapper: {
-                normal: {
-                    height: scaled(300),
-                    width: scaled(200)
-                },
-                wide: {
-                    height: scaled(170),
-                    width: scaled(200)
-                },
-                square: {
-                    height: scaled(250),
-                    width: scaled(250)
-                }
+    },
+    imageButton: {
+        wrapper: {
+            normal: {
+                height: scaled(300),
+                width: scaled(200)
             },
-            image: {
-                normal: {
-                    height: scaled(215),
-                    width: scaled(150)
-                },
-                wide: {
-                    height: scaled(90),
-                    width: scaled(150)
-                },
-                square: {
-                    height: scaled(200),
-                    width: scaled(200)
-                }
+            wide: {
+                height: scaled(170),
+                width: scaled(200)
             },
-            fontSize: {
-                normal: scaled(20),
-                small: scaled(15)
-            },
-            textBox: {
-                marginTop: 0
+            square: {
+                height: scaled(250),
+                width: scaled(250)
             }
         },
-        textButton: {
-            wrapper: {
-                normal: {
-                    height: 35
-                }
+        image: {
+            normal: {
+                height: scaled(215),
+                width: scaled(150)
             },
-            fontSize: {
-                normal: 16,
-                small: 12
+            wide: {
+                height: scaled(90),
+                width: scaled(150)
             },
-            textBox: {
-                height: 15
+            square: {
+                height: scaled(200),
+                width: scaled(200)
             }
+        },
+        fontSize: {
+            normal: scaled(20),
+            small: scaled(15)
+        },
+        textBox: {
+            marginTop: isAndroid ? -10 : 0
+        }
+    },
+    textButton: {
+        wrapper: {
+            normal: {
+                height: 35
+            }
+        },
+        fontSize: {
+            normal: 16,
+            small: 12
+        },
+        textBox: {
+            height: isAndroid ? 25 : 15
         }
     }
-
-    if (Platform.OS === 'android') {
-        style.imageButton.textBox.marginTop = -10
-        style.textButton.textBox.height = 25
-    }
-
-    return style
 }
 
 
-export default {
-    StaticStyle,
-    DynamicStyle
-}
+export default StaticStyle

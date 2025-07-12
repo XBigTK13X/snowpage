@@ -13,15 +13,16 @@ export default function BookListPage() {
     })
 
     if (!bookList) {
-        return <C.SnowText>Loading library...</C.SnowText>
+        return <C.SnowText>Loading books from {localParams.seriesName}...</C.SnowText>
     }
 
     return (
         <C.FillView>
+            <C.SnowLabel center>{localParams.seriesName}</C.SnowLabel>
             <C.SnowGrid items={bookList} renderItem={(item) => {
                 const thumbnail = apiClient.getBookThumbnail(item.id)
                 return <C.SnowImageButton
-                    title={item.name}
+                    title={item.name.substring(0, item.name.indexOf(' - '))}
                     imageSource={thumbnail}
                     onPress={routes.func(routes.bookDetails, { bookId: item.id })} />
             }} />

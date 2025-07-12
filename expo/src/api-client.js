@@ -6,72 +6,77 @@ export class ApiClient {
         this.webApiUrl = 'http://beast.9914.us:9090/api/v1'
         this.onApiError = details.onApiError
         this.apiErrorSent = false
-        let self = this
+
+        this.httpGet = this.httpGet.bind(this)
+        this.httpPost = this.httpPost.bind(this)
+        this.httpDelete = this.httpDelete.bind(this)
 
         this.imageSource = this.imageSource.bind(this)
         this.getPage = this.getPage.bind(this)
         this.getSeriesThumbnail = this.getSeriesThumbnail.bind(this)
 
+        const auth = `kids@kids.kids:kids`
+
         this.httpClient = axios.create({
             baseURL: this.webApiUrl,
             headers: {
-                'X-API-Key': this.apiKey
+                'Content-Type': 'application/json',
+                'Authorization': `Basic ${btoa(auth)}`
             }
         })
+    }
 
-        this.handleError = (err) => {
-            console.log(err)
-            if (err) {
-                if (err.code && err.code === 'ERR_NETWORK') {
-                    if (!self.apiErrorSent) {
-                        self.onApiError(err)
-                    }
-                    self.apiErrorSent = true
+    handleError(err) {
+        console.log({ err })
+        if (err) {
+            if (err.code && err.code === 'ERR_NETWORK') {
+                if (!this.apiErrorSent) {
+                    this.onApiError(err)
                 }
+                this.apiErrorSent = true
             }
         }
+    }
 
-        this.get = async (url, params) => {
-            let queryParams = null
-            if (params) {
-                queryParams = { params: params }
-            }
-            return self.httpClient
-                .get(url, queryParams)
-                .then((response) => {
-                    return response.data
-                })
-                .catch((err) => {
-                    self.handleError(err)
-                })
+    async httpGet(url, params) {
+        let queryParams = null
+        if (params) {
+            queryParams = { params: params }
         }
+        return this.httpClient
+            .get(url, queryParams)
+            .then((response) => {
+                return response.data
+            })
+            .catch((err) => {
+                this.handleError(err)
+            })
+    }
 
-        this.post = async (url, payload) => {
-            return self.httpClient
-                .post(url, payload)
-                .then((response) => {
-                    return response.data
-                })
-                .catch((err) => {
-                    self.handleError(err)
-                })
-        }
+    async httpPost(url, payload) {
+        return this.httpClient
+            .post(url, payload)
+            .then((response) => {
+                return response.data
+            })
+            .catch((err) => {
+                this.handleError(err)
+            })
+    }
 
-        this.delete = async (url) => {
-            return self.httpClient
-                .delete(url)
-                .then((response) => {
-                    return response.data
-                })
-                .catch((err) => {
-                    self.handleError(err)
-                })
-        }
+    async httpDelete(url) {
+        return this.httpClient
+            .delete(url)
+            .then((response) => {
+                return response.data
+            })
+            .catch((err) => {
+                this.handleError(err)
+            })
     }
 
     imageSource(webPath) {
         const uri = `${this.webApiUrl}${webPath}`
-        console.log({ uri })
         return {
             uri: uri,
             method: 'GET',
@@ -81,13 +86,8 @@ export class ApiClient {
         }
     }
 
-    isAuthenticated() {
-        return true
-    }
-
     getLibraryList() {
-        console.log({ client: this.httpClient })
-        return this.get("/libraries")
+        return this.httpGet("/libraries")
     }
 
     getSeriesList(libraryId) {
@@ -101,7 +101,7 @@ export class ApiClient {
                 }]
             }
         }
-        return this.post(`/series/list`, payload)
+        return this.httpPost(`/series/list?page=0&size=500&sort=metadata.titleSort,asc`, payload)
     }
 
     getSeriesThumbnail(seriesId) {
@@ -119,7 +119,7 @@ export class ApiClient {
                 }]
             }
         }
-        return this.post(`/books/list`, payload)
+        return this.httpPost(`/books/list?page=0&size=500&sort=metadata.numberSort,asc`, payload)
     }
 
     getBookThumbnail(bookId) {
@@ -127,7 +127,7 @@ export class ApiClient {
     }
 
     getPageList(bookId) {
-        return this.get(`books/${bookId}/pages`)
+        return this.httpGet(`books/${bookId}/pages`)
     }
 
     getPage(bookId, pageNumber) {

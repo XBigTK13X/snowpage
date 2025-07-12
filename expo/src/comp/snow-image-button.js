@@ -1,16 +1,15 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native';
 import SnowText from './snow-text'
-import { StaticStyle, DynamicStyle } from '../snow-style'
+import { StaticStyle } from '../snow-style'
 import { Image } from 'expo-image'
 
 
-const dyn = DynamicStyle()
 
 const styles = {
     wrapper: {
-        height: dyn.imageButton.wrapper.normal.height,
-        width: dyn.imageButton.wrapper.normal.width,
+        height: StaticStyle.imageButton.wrapper.normal.height,
+        width: StaticStyle.imageButton.wrapper.normal.width,
         margin: 10,
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -21,12 +20,12 @@ const styles = {
         borderRadius: 5,
     },
     wrapperWide: {
-        height: dyn.imageButton.wrapper.wide.height,
-        width: dyn.imageButton.wrapper.wide.width,
+        height: StaticStyle.imageButton.wrapper.wide.height,
+        width: StaticStyle.imageButton.wrapper.wide.width,
     },
     wrapperSquare: {
-        height: dyn.imageButton.wrapper.square.height,
-        width: dyn.imageButton.wrapper.square.width
+        height: StaticStyle.imageButton.wrapper.square.height,
+        width: StaticStyle.imageButton.wrapper.square.width
     },
     selected: {
         borderColor: StaticStyle.color.active
@@ -39,8 +38,8 @@ const styles = {
         borderColor: StaticStyle.color.coreDark,
     },
     image: {
-        height: dyn.imageButton.image.normal.height,
-        width: dyn.imageButton.image.normal.width,
+        height: StaticStyle.imageButton.image.normal.height,
+        width: StaticStyle.imageButton.image.normal.width,
         borderWidth: 2,
         borderColor: StaticStyle.color.outlineDark,
         backgroundColor: StaticStyle.color.outlineDark,
@@ -51,25 +50,25 @@ const styles = {
         borderRadius: 6
     },
     imageWide: {
-        height: dyn.imageButton.image.wide.height,
-        width: dyn.imageButton.image.wide.width,
+        height: StaticStyle.imageButton.image.wide.height,
+        width: StaticStyle.imageButton.image.wide.width,
     },
     imageSquare: {
-        height: dyn.imageButton.image.square.height,
-        width: dyn.imageButton.image.square.width,
+        height: StaticStyle.imageButton.image.square.height,
+        width: StaticStyle.imageButton.image.square.width,
     },
     text: {
         height: 80,
         color: StaticStyle.color.textDark,
-        fontSize: dyn.imageButton.fontSize.normal,
+        fontSize: StaticStyle.imageButton.fontSize.normal,
         fontWeight: 'bold',
         padding: 0,
         margin: 0,
-        marginTop: dyn.imageButton.textBox.marginTop,
+        marginTop: StaticStyle.imageButton.textBox.marginTop,
         textAlign: 'center'
     },
     smallText: {
-        fontSize: dyn.imageButton.fontSize.small
+        fontSize: StaticStyle.imageButton.fontSize.small
     }
 }
 

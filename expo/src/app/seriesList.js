@@ -23,7 +23,7 @@ export default function SeriesListPage() {
                 return <C.SnowImageButton
                     title={item.name}
                     imageSource={thumbnail}
-                    onPress={routes.func(routes.bookList, { seriesId: item.id })} />
+                    onPress={routes.func(routes.bookList, { seriesId: item.id, seriesName: item.name })} />
             }} />
         </C.FillView>
     )

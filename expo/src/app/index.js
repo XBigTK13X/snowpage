@@ -7,16 +7,17 @@ export default function LibraryListPage() {
     C.React.useEffect(() => {
         if (!libraryList && apiClient) {
             apiClient.getLibraryList().then((response) => {
-                console.log({ response })
                 setLibraryList(response)
             })
         }
     })
 
-    console.log({ libraryList })
-
     if (!libraryList) {
         return <C.SnowText>Loading library list...</C.SnowText>
+    }
+
+    if (libraryList.length === 0) {
+        return <C.SnowText>No libraries were found</C.SnowText>
     }
 
     return (

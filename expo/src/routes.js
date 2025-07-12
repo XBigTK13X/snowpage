@@ -53,46 +53,6 @@ routes.reset = () => {
     router.replace(routes.signIn);
 }
 
-routes.gotoItem = (item) => {
-    if (item.model_kind === 'movie') {
-        routes.goto(routes.movieDetails, {
-            shelfId: item.shelf.id,
-            movieId: item.id
-        })
-    }
-    else if (item.model_kind === 'show') {
-        routes.goto(routes.seasonList, {
-            shelfId: item.shelf.id,
-            showId: item.id,
-            showName: item.name
-        })
-    }
-    else if (item.model_kind === 'show_season') {
-        routes.goto(routes.episodeList, {
-            shelfId: item.show.shelf.id,
-            showId: item.show.id,
-            seasonId: item.id,
-            showName: item.show.name,
-            seasonOrder: item.season_order_counter,
-        })
-    }
-    else if (item.model_kind === 'show_episode') {
-        routes.goto(routes.episodeDetails, {
-            shelfId: item.season.show.shelf.id,
-            showId: item.season.show.id,
-            seasonId: item.season.id,
-            episodeId: item.id,
-            showName: item.season.show.name,
-            seasonOrder: item.season.season_order_counter,
-            episodeOrder: item.episode_order_counter
-        })
-    }
-    else {
-        console.log("Unhandled poster item")
-        console.log({ item })
-    }
-}
-
 export function QuietReactWarning() {
     return null
 }

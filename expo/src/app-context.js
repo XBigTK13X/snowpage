@@ -76,7 +76,7 @@ export function AppContextProvider(props) {
             value={appContext}
             children={props.children}
         />
-    );
+    )
 }
 
 export default AppContextProvider

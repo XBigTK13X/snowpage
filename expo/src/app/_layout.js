@@ -1,12 +1,11 @@
 import C from '../common'
 import { AppContextProvider } from '../app-context'
-import { StaticStyle } from '../snow-style'
 import { SystemBars } from "react-native-edge-to-edge";
-
+import { config } from '../settings'
 const styles = {
     header: {
         width: '100%',
-        height: 100
+        height: 75
     },
     hr: {
         borderBottomColor: C.StaticStyle.color.coreDark,
@@ -25,9 +24,8 @@ function Header() {
     return (
         <C.View style={styles.header}>
             <C.SnowGrid itemsPerRow={3} scroll={false}>
-                <C.SnowTextButton title="Home" onPress={routes.func(routes.landing)} />
+                <C.SnowTextButton title={`Home [v${config.clientVersion}]`} onPress={routes.func(routes.landing)} />
             </C.SnowGrid>
-            <C.FillView style={styles.hr} />
         </C.View>
     )
 }
@@ -38,14 +36,13 @@ export default function RootLayout() {
     }
     const Wrapper = C.isTV ? C.TVFocusGuideView : C.View
     return (
-        <AppContextProvider>
-            <C.View style={styles.page}>
-                <Wrapper>
+        <Wrapper style={styles.page}>
+            <C.FillView scroll>
+                <AppContextProvider>
                     <Header />
                     <C.Slot />
-                </Wrapper>
-            </C.View>
-        </AppContextProvider>
-
+                </AppContextProvider >
+            </C.FillView>
+        </Wrapper>
     )
 }
