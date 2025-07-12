@@ -9,6 +9,6 @@ echo "=-=- Push the apks up to the file server -=-="
 ~/script/push-apks.sh snowpage
 
 echo "=-=- Deploy the apks to all devices -=-="
-~/script/remote-adb.py
+~/script/remote-adb.py All deploy_snowpage
 
 unset NODE_ENV
