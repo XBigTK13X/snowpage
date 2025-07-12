@@ -4,7 +4,7 @@
       [
         "@react-native-tvos/config-tv",
         {
-          "androidTVBanner": "./assets/images/icon-400x240.png",
+          "androidTVBanner": "./assets/icon/android/tvbanner.png",
           "appleTVImages": {
             "icon": "./assets/images/icon-1280x768.png",
             "iconSmall": "./assets/images/icon-400x240.png",
@@ -29,20 +29,19 @@
     ],
     "android": {
       "edgeToEdgeEnabled": true,
-      "splash": {
-        "image": "./assets/images/icon-1920x720.png"
-      },
       "package": "com.simplepathstudios.snowpage"
     },
     "ios": {
-      "splash": {
-        "image": "./assets/images/icon-1920x720.png"
-      },
       "bundleIdentifier": "com.simplepathstudios.snowpage"
+    },
+    "splash": {
+      "image": "./assets/icon/splash.png",
+      "backgroundColor": "#9ec0e6"
     },
     "newArchEnabled": false,
     "name": "snowpage",
     "slug": "snowpage",
-    "scheme": "com.simplepathstudios.snowpage"
+    "scheme": "com.simplepathstudios.snowpage",
+    "icon": "./assets/icon/icon.png"
   }
 }
