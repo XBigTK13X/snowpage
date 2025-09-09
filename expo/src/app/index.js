@@ -35,7 +35,7 @@ export default function LibraryListPage() {
                     position: 'absolute',
                     right: 30,
                     bottom: -250
-                }}>{`v${config.clientVersion}`}</C.SnowText>
+                }}>{`v${config.clientVersion} - built ${config.clientBuildDate}`}</C.SnowText>
             </C.View>
         </C.FillView>
     )
