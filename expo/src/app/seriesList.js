@@ -18,7 +18,7 @@ export default function SeriesListPage() {
 
     return (
         <C.FillView>
-            <C.SnowGrid items={seriesList} renderItem={(item) => {
+            <C.SnowGrid itemsPerRow={7} items={seriesList} renderItem={(item) => {
                 const thumbnail = apiClient.getSeriesThumbnail(item.id)
                 return <C.SnowImageButton
                     title={item.name}

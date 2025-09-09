@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import SnowText from './snow-text'
 import { StaticStyle } from '../snow-style'
 import { Image } from 'expo-image'
@@ -14,10 +14,9 @@ const styles = {
         marginLeft: 'auto',
         marginRight: 'auto',
         marginBottom: 0,
-        backgroundColor: StaticStyle.color.core,
-        borderWidth: 5,
         borderColor: StaticStyle.color.core,
-        borderRadius: 5,
+        borderWidth: 2,
+        borderRadius: 2,
     },
     wrapperWide: {
         height: StaticStyle.imageButton.wrapper.wide.height,
@@ -40,14 +39,9 @@ const styles = {
     image: {
         height: StaticStyle.imageButton.image.normal.height,
         width: StaticStyle.imageButton.image.normal.width,
-        borderWidth: 2,
-        borderColor: StaticStyle.color.outlineDark,
-        backgroundColor: StaticStyle.color.outlineDark,
         marginTop: 5,
         marginLeft: 'auto',
-        marginRight: 'auto',
-        marginBottom: 10,
-        borderRadius: 6
+        marginRight: 'auto'
     },
     imageWide: {
         height: StaticStyle.imageButton.image.wide.height,
@@ -58,17 +52,27 @@ const styles = {
         width: StaticStyle.imageButton.image.square.width,
     },
     text: {
-        height: 80,
+        height: 25,
         color: StaticStyle.color.textDark,
         fontSize: StaticStyle.imageButton.fontSize.normal,
         fontWeight: 'bold',
         padding: 0,
         margin: 0,
-        marginTop: StaticStyle.imageButton.textBox.marginTop,
         textAlign: 'center'
     },
     smallText: {
         fontSize: StaticStyle.imageButton.fontSize.small
+    },
+    textWrapper: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: '100%',
+        height: '20%',
+        backgroundColor: StaticStyle.color.core,
+        borderColor: StaticStyle.color.core,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 2
     }
 }
 
@@ -103,34 +107,45 @@ export function SnowImageButton(props) {
         imageStyle.push(styles.imageSquare)
     }
 
+    let textWrapperStyle = [styles.textWrapper]
+
     if (props.dull) {
         wrapperStyle.push(styles.dull)
+        textWrapperStyle.push(styles.dull)
     }
     if (props.selected) {
         wrapperStyle.push(styles.selected)
+        textWrapperStyle.push(styles.selected)
     }
     if (focused) {
         wrapperStyle.push(styles.focused)
+        textWrapperStyle.push(styles.focused)
     }
 
 
     return (
-        <TouchableOpacity
-            ref={touchRef}
-            activeOpacity={1.0}
-            onPress={props.onPress}
-            onLongPress={props.onLongPress}
-            onFocus={() => { setFocused(true) }}
-            onBlur={() => { setFocused(false) }}
-            style={wrapperStyle}
-            hasTVPreferredFocus={props.shouldFocus || focused}
-            autoFocus={props.shouldFocus}>
-            <Image
-                style={imageStyle}
-                contentFit="contain"
-                source={props.imageSource} />
-            <SnowText style={fontStyle}>{title}</SnowText>
-        </TouchableOpacity>
+        <View>
+
+            <TouchableOpacity
+                ref={touchRef}
+                activeOpacity={1.0}
+                onPress={props.onPress}
+                onLongPress={props.onLongPress}
+                onFocus={() => { setFocused(true) }}
+                onBlur={() => { setFocused(false) }}
+                style={wrapperStyle}
+                hasTVPreferredFocus={props.shouldFocus || focused}
+                autoFocus={props.shouldFocus}>
+                <Image
+                    style={imageStyle}
+                    contentFit="contain"
+                    source={props.imageSource} />
+                <View style={textWrapperStyle}>
+                    <SnowText style={fontStyle}>{title}</SnowText>
+                </View>
+
+            </TouchableOpacity>
+        </View>
     )
 }
 

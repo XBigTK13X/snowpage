@@ -1,7 +1,6 @@
 import C from '../common'
 import { AppContextProvider } from '../app-context'
-import { SystemBars } from "react-native-edge-to-edge";
-import { config } from '../settings'
+
 const styles = {
     header: {
         width: '100%',
@@ -24,16 +23,13 @@ function Header() {
     return (
         <C.View style={styles.header}>
             <C.SnowGrid itemsPerRow={3} scroll={false}>
-                <C.SnowTextButton title={`Home [v${config.clientVersion}]`} onPress={routes.func(routes.landing)} />
+                <C.SnowTextButton title={`Home`} onPress={routes.func(routes.landing)} />
             </C.SnowGrid>
         </C.View>
     )
 }
 
 export default function RootLayout() {
-    if (C.isAndroid) {
-        SystemBars.setHidden(true)
-    }
     const Wrapper = C.isTV ? C.TVFocusGuideView : C.View
     return (
         <Wrapper style={styles.page}>

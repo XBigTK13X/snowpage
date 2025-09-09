@@ -38,7 +38,7 @@
       "image": "./assets/icon/splash.png",
       "backgroundColor": "#9ec0e6"
     },
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "name": "snowpage",
     "slug": "snowpage",
     "scheme": "com.simplepathstudios.snowpage",

@@ -51,7 +51,7 @@ export const StaticStyle = {
     imageButton: {
         wrapper: {
             normal: {
-                height: scaled(300),
+                height: scaled(290),
                 width: scaled(200)
             },
             wide: {

@@ -1,4 +1,5 @@
 import C from '../common'
+import { config } from '../settings'
 export default function LibraryListPage() {
     const { routes, apiClient } = C.useAppContext()
 
@@ -27,6 +28,15 @@ export default function LibraryListPage() {
                     title={item.name}
                     onPress={routes.func(routes.seriesList, { libraryId: item.id })} />
             }} />
+            <C.View style={{
+                flex: 1
+            }}>
+                <C.SnowText style={{
+                    position: 'absolute',
+                    right: 30,
+                    bottom: -250
+                }}>{`v${config.clientVersion}`}</C.SnowText>
+            </C.View>
         </C.FillView>
     )
 }

@@ -19,10 +19,15 @@ export default function BookListPage() {
     return (
         <C.FillView>
             <C.SnowLabel center>{localParams.seriesName}</C.SnowLabel>
-            <C.SnowGrid items={bookList} renderItem={(item) => {
+            <C.SnowGrid itemsPerRow={7} items={bookList} renderItem={(item) => {
                 const thumbnail = apiClient.getBookThumbnail(item.id)
+                let title = item.name
+                const dashIndex = title.indexOf(' - ')
+                if (dashIndex !== -1) {
+                    title = item.name.substring(0, dashIndex)
+                }
                 return <C.SnowImageButton
-                    title={item.name.substring(0, item.name.indexOf(' - '))}
+                    title={title}
                     imageSource={thumbnail}
                     onPress={routes.func(routes.bookDetails, { bookId: item.id })} />
             }} />
