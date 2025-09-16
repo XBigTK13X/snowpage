@@ -1,6 +1,6 @@
 import C from '../common'
 export default function BookListPage() {
-    const { routes, apiClient } = C.useAppContext()
+    const { routes, apiClient, config } = C.useAppContext()
     const localParams = C.useLocalSearchParams()
     const [bookList, setBookList] = C.React.useState(null)
 
@@ -19,7 +19,7 @@ export default function BookListPage() {
     return (
         <C.FillView>
             <C.SnowLabel center>{localParams.seriesName}</C.SnowLabel>
-            <C.SnowGrid itemsPerRow={7} items={bookList} renderItem={(item) => {
+            <C.SnowGrid itemsPerRow={config.booksPerRow} items={bookList} renderItem={(item) => {
                 const thumbnail = apiClient.getBookThumbnail(item.id)
                 let title = item.name
                 const dashIndex = title.indexOf(' - ')

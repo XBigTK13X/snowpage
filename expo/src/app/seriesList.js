@@ -1,6 +1,6 @@
 import C from '../common'
 export default function SeriesListPage() {
-    const { routes, apiClient } = C.useAppContext()
+    const { routes, apiClient, config } = C.useAppContext()
     const localParams = C.useLocalSearchParams()
     const [seriesList, setSeriesList] = C.React.useState(null)
 
@@ -18,7 +18,7 @@ export default function SeriesListPage() {
 
     return (
         <C.FillView>
-            <C.SnowGrid itemsPerRow={7} items={seriesList} renderItem={(item) => {
+            <C.SnowGrid itemsPerRow={config.booksPerRow} items={seriesList} renderItem={(item) => {
                 const thumbnail = apiClient.getSeriesThumbnail(item.id)
                 return <C.SnowImageButton
                     title={item.name}

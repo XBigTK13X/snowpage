@@ -1,8 +1,10 @@
 class Config {
     constructor() {
-        this.clientVersion = "1.1.0"
-        this.clientBuildDate = "September 09, 2025"
+        this.clientVersion = "1.2.0"
+        this.clientBuildDate = "September 15, 2025"
         this.clientDevBuildNumber = 1
+
+        this.booksPerRow = 5
     }
 }
 

@@ -13,8 +13,7 @@ const styles = {
         margin: 10,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginBottom: 0,
-        borderColor: StaticStyle.color.core,
+        borderColor: StaticStyle.color.background,
         borderWidth: 2,
         borderRadius: 2,
     },
@@ -40,6 +39,7 @@ const styles = {
         height: StaticStyle.imageButton.image.normal.height,
         width: StaticStyle.imageButton.image.normal.width,
         marginTop: 5,
+        paddingBottom: 5,
         marginLeft: 'auto',
         marginRight: 'auto'
     },
@@ -66,10 +66,12 @@ const styles = {
     textWrapper: {
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginTop: 5,
         width: '100%',
-        height: '20%',
+        height: 41,
         backgroundColor: StaticStyle.color.core,
         borderColor: StaticStyle.color.core,
+        borderRadius: 2,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 2

@@ -33,12 +33,12 @@ export default function RootLayout() {
     const Wrapper = C.isTV ? C.TVFocusGuideView : C.View
     return (
         <Wrapper style={styles.page}>
-            <C.FillView scroll>
-                <AppContextProvider>
+            <AppContextProvider>
+                <C.ScrollView style={C.StaticStyle.page}>
                     <Header />
                     <C.Slot />
-                </AppContextProvider >
-            </C.FillView>
-        </Wrapper>
+                </C.ScrollView>
+            </AppContextProvider >
+        </Wrapper >
     )
 }

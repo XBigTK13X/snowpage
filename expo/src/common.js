@@ -13,10 +13,10 @@ import {
 import { Image } from 'expo-image'
 
 import {
-    Dimensions,
     Linking,
     Modal,
     Platform,
+    ScrollView,
     Text,
     TouchableOpacity,
     TVFocusGuideView,
@@ -65,6 +65,7 @@ export default {
     Platform,
     React,
     Redirect,
+    ScrollView,
     Slot,
     SnowGrid,
     SnowHeader,

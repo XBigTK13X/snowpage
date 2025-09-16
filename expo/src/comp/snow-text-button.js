@@ -29,6 +29,7 @@ const styles = {
     },
     text: {
         fontSize: StaticStyle.textButton.fontSize.normal,
+        color: StaticStyle.color.textDark,
         padding: 0,
         margin: 0,
         textAlign: 'center',

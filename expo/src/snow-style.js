@@ -1,6 +1,7 @@
 import { Platform, Dimensions } from 'react-native';
 
 const isAndroid = Platform.OS === 'android'
+const isWeb = Platform.OS === 'web'
 
 const uhd = {
     width: 3840,
@@ -20,9 +21,9 @@ export const StaticStyle = {
     color: {
         background: 'black',
         text: 'rgb(235, 235, 235)',
-        textDark: 'rgb(22, 22, 22)',
+        textDark: 'rgb(10, 10, 10)',
         active: 'rgb(150, 150, 150)',
-        core: 'rgb(86, 104, 205)',
+        core: 'rgba(105, 127, 255, 1)',
         hover: 'rgb(219, 158, 44)',
         coreDark: 'rgb(81, 92, 154)',
         outlineDark: 'rgb(63, 63, 63)',
@@ -51,8 +52,8 @@ export const StaticStyle = {
     imageButton: {
         wrapper: {
             normal: {
-                height: scaled(290),
-                width: scaled(200)
+                height: scaled(425),
+                width: scaled(310)
             },
             wide: {
                 height: scaled(170),
@@ -65,8 +66,8 @@ export const StaticStyle = {
         },
         image: {
             normal: {
-                height: scaled(215),
-                width: scaled(150)
+                height: scaled(315),
+                width: scaled(260)
             },
             wide: {
                 height: scaled(90),
@@ -78,8 +79,8 @@ export const StaticStyle = {
             }
         },
         fontSize: {
-            normal: scaled(20),
-            small: scaled(15)
+            normal: scaled(25),
+            small: scaled(20)
         },
         textBox: {
             marginTop: isAndroid ? -10 : 0
@@ -101,5 +102,14 @@ export const StaticStyle = {
     }
 }
 
+if (isWeb) {
+    StaticStyle.page = {
+        height: StaticStyle.window.height() - 50
+    }
+} else {
+    StaticStyle.page = {
+        height: StaticStyle.window.height() - 25
+    }
+}
 
 export default StaticStyle
