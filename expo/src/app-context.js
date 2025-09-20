@@ -1,23 +1,9 @@
 import React from 'react';
+import Snow from 'react-native-snowui'
 import { config } from './settings'
 import { routes } from './routes'
 import { Modal, View } from 'react-native'
 import { ApiClient } from './api-client'
-
-import { StaticStyle } from './snow-style'
-import SnowGrid from './comp/snow-grid'
-import SnowText from './comp/snow-text'
-import SnowTextButton from './comp/snow-text-button'
-
-const styles = {
-    prompt: {
-        backgroundColor: StaticStyle.color.background,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center'
-    }
-}
 
 const AppContext = React.createContext({
     config: null,
@@ -34,6 +20,7 @@ export function useAppContext() {
 }
 
 export function AppContextProvider(props) {
+    const { SnowStyle } = Snow.useStyleContext(props)
     const [apiError, setApiError] = React.useState(null)
     const onApiError = (err) => {
         if (!apiError) {
@@ -50,15 +37,24 @@ export function AppContextProvider(props) {
 
 
     if (apiError) {
+        const styles = {
+            prompt: {
+                backgroundColor: SnowStyle.color.background,
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center'
+            }
+        }
         return (
             <Modal navigationBarTranslucent statusBarTranslucent>
                 <View style={styles.prompt}>
-                    <SnowText>Unable to communicate with Snowpage.</SnowText>
-                    <SnowText>Check if your Wi-Fi is disconnected, ethernet unplugged, or if the Snowstream server is down.</SnowText>
+                    <Snow.Text>Unable to communicate with Snowpage.</Snow.Text>
+                    <Snow.Text>Check if your Wi-Fi is disconnected, ethernet unplugged, or if the Snowstream server is down.</Snow.Text>
                     <View>
-                        <SnowGrid itemsPerRow={2}>
-                            <SnowTextButton title="Try to Reload" onPress={() => { setApiError(null) }} />
-                        </SnowGrid>
+                        <Snow.Grid itemsPerRow={2}>
+                            <Snow.TextButton title="Try to Reload" onPress={() => { setApiError(null) }} />
+                        </Snow.Grid>
                     </View>
                 </View>
             </Modal>

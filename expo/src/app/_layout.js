@@ -1,24 +1,16 @@
 import C from '../common'
-import { AppContextProvider } from '../app-context'
+import Snow from 'react-native-snowui'
+import { AppContextProvider, useAppContext } from '../app-context'
 
 const styles = {
     header: {
         width: '100%',
         height: 75
-    },
-    hr: {
-        borderBottomColor: C.StaticStyle.color.coreDark,
-        borderBottomWidth: 2,
-    },
-    page: {
-        flex: 1,
-        padding: 30,
-        backgroundColor: C.StaticStyle.color.background
     }
 }
 
 function Header() {
-    const { routes } = C.useAppContext()
+    const { routes } = useAppContext()
 
     return (
         <C.View style={styles.header}>
@@ -29,16 +21,27 @@ function Header() {
     )
 }
 
+const appStyle = {
+    color: {
+        background: 'black',
+        text: 'rgb(235, 235, 235)',
+        textDark: 'rgb(10, 10, 10)',
+        active: 'rgb(150, 150, 150)',
+        hover: 'rgb(219, 158, 44)',
+        core: 'rgba(105, 127, 255, 1)',
+        coreDark: 'rgb(81, 92, 154)',
+        outlineDark: 'rgb(63, 63, 63)',
+        transparentDark: 'rgba(0,0,0,0.6)'
+    }
+}
+
 export default function RootLayout() {
-    const Wrapper = C.isTV ? C.TVFocusGuideView : C.View
     return (
-        <Wrapper style={styles.page}>
+        <Snow.App snowStyle={appStyle}>
             <AppContextProvider>
-                <C.ScrollView style={C.StaticStyle.page}>
-                    <Header />
-                    <C.Slot />
-                </C.ScrollView>
+                <Header />
+                <C.Slot />
             </AppContextProvider >
-        </Wrapper >
+        </Snow.App>
     )
 }

@@ -29,19 +29,19 @@ import { useDebouncedCallback } from 'use-debounce';
 // TVFocusGuideView docs
 
 import util from './util'
-import { StaticStyle } from './snow-style'
 
 import { useAppContext } from './app-context'
 
-import FillView from './comp/fill-view'
-
-import SnowGrid from './comp/snow-grid'
-import SnowHeader from './comp/snow-header'
-import SnowImageButton from './comp/snow-image-button'
-import SnowInput from './comp/snow-input'
-import SnowLabel from './comp/snow-label'
-import SnowText from './comp/snow-text'
-import SnowTextButton from './comp/snow-text-button'
+import {
+    SnowFillView,
+    SnowGrid,
+    SnowHeader,
+    SnowImageButton,
+    SnowInput,
+    SnowLabel,
+    SnowText,
+    SnowTextButton
+} from 'react-native-snowui'
 
 const isWeb = Platform.OS === 'web'
 const isAndroid = Platform.OS === 'android'
@@ -57,7 +57,7 @@ export default {
     useNavigation,
     useRouter,
     util,
-    FillView,
+    FillView: SnowFillView,
     Image,
     Link,
     Linking,
@@ -74,7 +74,6 @@ export default {
     SnowLabel,
     SnowText,
     SnowTextButton,
-    StaticStyle,
     Stack,
     Text,
     TouchableOpacity,

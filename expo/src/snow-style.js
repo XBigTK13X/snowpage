@@ -23,8 +23,8 @@ export const StaticStyle = {
         text: 'rgb(235, 235, 235)',
         textDark: 'rgb(10, 10, 10)',
         active: 'rgb(150, 150, 150)',
-        core: 'rgba(105, 127, 255, 1)',
         hover: 'rgb(219, 158, 44)',
+        core: 'rgba(105, 127, 255, 1)',
         coreDark: 'rgb(81, 92, 154)',
         outlineDark: 'rgb(63, 63, 63)',
         transparentDark: 'rgba(0,0,0,0.6)'
