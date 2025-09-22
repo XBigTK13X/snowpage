@@ -38,9 +38,9 @@ const appStyle = {
 export default function RootLayout() {
     return (
         <Snow.App snowStyle={appStyle}>
-            <AppContextProvider>
+            <AppContextProvider style={{ flex: 1 }}>
                 <Header />
-                <C.Slot />
+                <C.Slot style={{ flex: 1 }} />
             </AppContextProvider >
         </Snow.App>
     )

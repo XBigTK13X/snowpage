@@ -69,6 +69,7 @@ export function AppContextProvider(props) {
 
     return (
         <AppContext.Provider
+            style={{ flex: 1 }}
             value={appContext}
             children={props.children}
         />
