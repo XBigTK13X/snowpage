@@ -17,7 +17,7 @@ export default function BookListPage() {
     }
 
     return (
-        <C.FillView>
+        <C.View>
             <C.SnowLabel center>{localParams.seriesName}</C.SnowLabel>
             <C.SnowGrid itemsPerRow={config.booksPerRow} items={bookList} renderItem={(item) => {
                 const thumbnail = apiClient.getBookThumbnail(item.id)
@@ -31,6 +31,6 @@ export default function BookListPage() {
                     imageSource={thumbnail}
                     onPress={routes.func(routes.bookDetails, { bookId: item.id })} />
             }} />
-        </C.FillView>
+        </C.View>
     )
 }

@@ -22,21 +22,17 @@ export default function LibraryListPage() {
     }
 
     return (
-        <C.FillView>
+        <C.View>
             <C.SnowGrid items={libraryList} renderItem={(item) => {
                 return <C.SnowTextButton
                     title={item.name}
                     onPress={routes.func(routes.seriesList, { libraryId: item.id })} />
             }} />
-            <C.View style={{
-                flex: 1
-            }}>
-                <C.SnowText style={{
-                    position: 'absolute',
-                    right: 30,
-                    bottom: -250
-                }}>{`v${config.clientVersion} - built ${config.clientBuildDate}`}</C.SnowText>
-            </C.View>
-        </C.FillView>
+            <C.SnowText style={{
+                position: 'absolute',
+                right: 30,
+                bottom: -250
+            }}>{`v${config.clientVersion} - built ${config.clientBuildDate}`}</C.SnowText>
+        </C.View>
     )
 }
