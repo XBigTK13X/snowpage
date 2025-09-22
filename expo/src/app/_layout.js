@@ -14,7 +14,7 @@ function Header() {
 
     return (
         <C.View style={styles.header}>
-            <C.SnowGrid itemsPerRow={3} scroll={false}>
+            <C.SnowGrid shouldFocus={false} itemsPerRow={3} scroll={false}>
                 <C.SnowTextButton title={`Home`} onPress={routes.func(routes.landing)} />
             </C.SnowGrid>
         </C.View>
