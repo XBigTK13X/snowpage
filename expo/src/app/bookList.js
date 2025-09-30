@@ -19,7 +19,7 @@ export default function BookListPage() {
     return (
         <C.View>
             <C.SnowLabel center>{localParams.seriesName}</C.SnowLabel>
-            <C.SnowGrid itemsPerRow={config.booksPerRow} items={bookList} renderItem={(item) => {
+            <C.SnowGrid focusStart focusKey="page-entry" itemsPerRow={config.booksPerRow} items={bookList} renderItem={(item) => {
                 const thumbnail = apiClient.getBookThumbnail(item.id)
                 let title = item.name
                 const dashIndex = title.indexOf(' - ')

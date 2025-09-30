@@ -18,7 +18,7 @@ export default function SeriesListPage() {
 
     return (
         <C.View>
-            <C.SnowGrid itemsPerRow={config.booksPerRow} items={seriesList} renderItem={(item) => {
+            <C.SnowGrid focusStart focusKey="page-entry" itemsPerRow={config.booksPerRow} items={seriesList} renderItem={(item) => {
                 const thumbnail = apiClient.getSeriesThumbnail(item.id)
                 return <C.SnowImageButton
                     title={item.name}

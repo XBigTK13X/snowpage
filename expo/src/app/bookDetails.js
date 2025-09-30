@@ -1,5 +1,5 @@
 import C from '../common'
-import { TVEventHandler, useTVEventHandler } from 'react-native';
+import { TVEventHandler, useTVEventHandler, Pressable } from 'react-native';
 
 import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
@@ -25,28 +25,38 @@ export default function BookDetailsPage() {
         }
     })
 
-
-    const myTVEventHandler = evt => {
+    const nextPage = () => {
         const page = pageNumberRef.current
         const max = maxPageNumberRef.current
         const diff = showTwoPages ? 2 : 1
+        if (page < max) {
+            pageNumberRef.current += diff
+            setPageNumber(page + diff)
+        }
+        else {
+            routes.back()
+        }
+    }
+
+    const previousPage = () => {
+        const page = pageNumberRef.current
+        const diff = showTwoPages ? 2 : 1
+        if (page > 1) {
+            pageNumberRef.current -= diff
+            setPageNumber(page - diff)
+        }
+        else {
+            routes.back()
+        }
+    }
+
+
+    const myTVEventHandler = evt => {
         if (evt.eventType === 'right' || evt.eventType === 'select') {
-            if (page < max) {
-                pageNumberRef.current += diff
-                setPageNumber(page + diff)
-            }
-            else {
-                routes.back()
-            }
+            nextPage()
         }
         else if (evt.eventType === 'left') {
-            if (page > 1) {
-                pageNumberRef.current -= diff
-                setPageNumber(page - diff)
-            }
-            else {
-                routes.back()
-            }
+            previousPage()
         }
         else if (evt.eventType === 'up') {
             setShowTwoPages(!showTwoPages)
@@ -107,6 +117,23 @@ export default function BookDetailsPage() {
         countDisplay = <C.SnowText style={{ margin: 0, padding: 0, backgroundColor: 'black', color: 'white' }}>
             {`Page ${pageNumber} of ${pages.length}`}
         </C.SnowText>
+    }
+
+    if (!C.isTV) {
+        const tapBook = (evt) => {
+            const half = evt.view.innerWidth / 2
+            const position = evt.pageX
+            if (position >= half) {
+                nextPage()
+            } else {
+                previousPage()
+            }
+        }
+        images = (
+            <Pressable style={{ flex: 1 }} onPress={tapBook}>
+                {images}
+            </Pressable >
+        )
     }
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import Snow from 'react-native-snowui'
+import Snow from 'expo-snowui'
 import { config } from './settings'
 import { routes } from './routes'
 import { Modal, View } from 'react-native'
@@ -27,13 +27,7 @@ export function AppContextProvider(props) {
             setApiError(err)
         }
     }
-    const [apiClient, setApiClient] = React.useState(null)
-
-    React.useEffect(() => {
-        if (!apiClient) {
-            setApiClient(new ApiClient({ onApiError }))
-        }
-    })
+    const apiClient = new ApiClient({ onApiError })
 
 
     if (apiError) {

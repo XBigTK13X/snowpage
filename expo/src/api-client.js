@@ -14,6 +14,7 @@ export class ApiClient {
         this.imageSource = this.imageSource.bind(this)
         this.getPage = this.getPage.bind(this)
         this.getSeriesThumbnail = this.getSeriesThumbnail.bind(this)
+        this.getSeriesList = this.getSeriesList.bind(this)
 
         const auth = `kids@kids.kids:kids`
 

@@ -41,7 +41,7 @@ import {
     SnowLabel,
     SnowText,
     SnowTextButton
-} from 'react-native-snowui'
+} from 'expo-snowui'
 
 const isWeb = Platform.OS === 'web'
 const isAndroid = Platform.OS === 'android'

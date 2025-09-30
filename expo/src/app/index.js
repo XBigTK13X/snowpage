@@ -23,7 +23,7 @@ export default function LibraryListPage() {
 
     return (
         <C.View>
-            <C.SnowGrid items={libraryList} renderItem={(item) => {
+            <C.SnowGrid focusStart focusKey="page-entry" items={libraryList} renderItem={(item) => {
                 return <C.SnowTextButton
                     title={item.name}
                     onPress={routes.func(routes.seriesList, { libraryId: item.id })} />

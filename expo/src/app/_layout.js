@@ -1,5 +1,5 @@
 import C from '../common'
-import Snow from 'react-native-snowui'
+import Snow from 'expo-snowui'
 import { AppContextProvider, useAppContext } from '../app-context'
 
 const styles = {
@@ -10,12 +10,17 @@ const styles = {
 }
 
 function Header() {
-    const { routes } = useAppContext()
+    const { routes, belowHeaderElement } = useAppContext()
 
     return (
         <C.View style={styles.header}>
-            <C.SnowGrid shouldFocus={false} itemsPerRow={3} scroll={false}>
-                <C.SnowTextButton title={`Home`} onPress={routes.func(routes.landing)} />
+            <C.SnowGrid itemsPerRow={3} scroll={false}>
+                <C.SnowTextButton
+                    focusKey="home-button"
+                    focusDown="page-entry"
+                    title={`Home`}
+                    onPress={routes.func(routes.landing)}
+                />
             </C.SnowGrid>
         </C.View>
     )
@@ -37,7 +42,7 @@ const appStyle = {
 
 export default function RootLayout() {
     return (
-        <Snow.App snowStyle={appStyle}>
+        <Snow.App DEBUG_FOCUS={false} snowStyle={appStyle}>
             <AppContextProvider style={{ flex: 1 }}>
                 <Header />
                 <C.Slot style={{ flex: 1 }} />
