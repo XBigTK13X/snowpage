@@ -10,10 +10,13 @@ export default function BookDetailsPage() {
     const localParams = C.useLocalSearchParams()
     const [pages, setPages] = C.React.useState(null)
     const [showTwoPages, setShowTwoPages] = C.React.useState(false)
+    const showTwoPagesRef = C.React.useRef(showTwoPages)
+    const [showCount, setShowCount] = C.React.useState(false)
+    const showCountRef = C.React.useRef(showCount)
     const [pageNumber, setPageNumber] = C.React.useState(1)
     const pageNumberRef = C.React.useRef(1)
     const maxPageNumberRef = C.React.useRef(2)
-    const [showCount, setShowCount] = C.React.useState(false)
+
 
     C.React.useEffect(() => {
         if (!pages) {
@@ -25,10 +28,18 @@ export default function BookDetailsPage() {
         }
     })
 
+    C.React.useEffect(() => {
+        showTwoPagesRef.current = showTwoPages
+    }, [showTwoPages])
+
+    C.React.useEffect(() => {
+        showCountRef.current = showCount
+    }, [showCount])
+
     const nextPage = () => {
         const page = pageNumberRef.current
         const max = maxPageNumberRef.current
-        const diff = showTwoPages ? 2 : 1
+        const diff = showTwoPagesRef.current ? 2 : 1
         if (page < max) {
             pageNumberRef.current += diff
             setPageNumber(page + diff)
@@ -40,7 +51,7 @@ export default function BookDetailsPage() {
 
     const previousPage = () => {
         const page = pageNumberRef.current
-        const diff = showTwoPages ? 2 : 1
+        const diff = showTwoPagesRef.current ? 2 : 1
         if (page > 1) {
             pageNumberRef.current -= diff
             setPageNumber(page - diff)
@@ -50,27 +61,50 @@ export default function BookDetailsPage() {
         }
     }
 
-
-    const myTVEventHandler = evt => {
-        if (evt.eventType === 'right' || evt.eventType === 'select') {
-            nextPage()
-        }
-        else if (evt.eventType === 'left') {
-            previousPage()
-        }
-        else if (evt.eventType === 'up') {
-            setShowTwoPages(!showTwoPages)
-        }
-        else if (evt.eventType === 'down') {
-            setShowCount(!showCount)
-        }
-    };
-
-
     if (C.isTV) {
-        useTVEventHandler(myTVEventHandler);
+        const tvRemoteHandler = evt => {
+            if (evt.eventType === 'right' || evt.eventType === 'select') {
+                nextPage()
+            }
+            else if (evt.eventType === 'left') {
+                previousPage()
+            }
+            else if (evt.eventType === 'up') {
+                setShowTwoPages(!showTwoPagesRef.current)
+            }
+            else if (evt.eventType === 'down') {
+                setShowCount(!showCountRef.current)
+            }
+        };
+        useTVEventHandler(tvRemoteHandler);
     }
 
+    if (C.isWeb) {
+        C.React.useEffect(() => {
+            const focusKeyboardHandler = (event) => {
+                switch (event.key) {
+                    case 'ArrowUp':
+                        setShowTwoPages(!showTwoPagesRef.current)
+                        break
+                    case 'ArrowDown':
+                        setShowCount(!showCountRef.current)
+                        break
+                    case 'ArrowLeft':
+                        previousPage()
+                        break
+                    case 'ArrowRight':
+                        nextPage()
+                        break
+                    default:
+                        break
+                }
+            };
+            window.addEventListener('keydown', focusKeyboardHandler);
+            return () => {
+                window.removeEventListener('keydown', focusKeyboardHandler);
+            };
+        }, []);
+    }
 
     if (!pages) {
         return <C.SnowText>Loading pages...</C.SnowText>

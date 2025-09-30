@@ -40,7 +40,9 @@ import {
     SnowInput,
     SnowLabel,
     SnowText,
-    SnowTextButton
+    SnowTextButton,
+    useStyleContext,
+    useFocusContext
 } from 'expo-snowui'
 
 const isWeb = Platform.OS === 'web'
@@ -56,6 +58,8 @@ export default {
     useLocalSearchParams,
     useNavigation,
     useRouter,
+    useStyleContext,
+    useFocusContext,
     util,
     FillView: SnowFillView,
     Image,

@@ -3030,10 +3030,10 @@ expo-secure-store@^15.0.7:
   resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-15.0.7.tgz#f74f928029889b8a32c0eafc2a214abee1e8b71e"
   integrity sha512-9q7+G1Zxr5P6J5NRIlm86KulvmYwc6UnQlYPjQLDu1drDnerz6AT6l884dPu29HgtDTn4rR0heYeeGFhMKM7/Q==
 
-expo-snowui@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/expo-snowui/-/expo-snowui-1.1.6.tgz#95d3bc9c7617823dd072f1f98b39a6f6b4471304"
-  integrity sha512-a6+AiQFljQaLg5tVrCq2LMgDDm5QwxGwgMLPyANQH9PYCLJ5GsHSzgBBA9jNRG5wAtObnehlonXYy/YvwjO/Tw==
+expo-snowui@1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/expo-snowui/-/expo-snowui-1.1.12.tgz#9cb14405b744101745376887484a82703c2d3dc3"
+  integrity sha512-NIchBUhwpHFcJ3Nns+CIKtYGpq8QTyo/PedXUUDV3XoExCYz5BWvy5wgBj+5F7fK9wW9leehh19NqN6/EXm3DQ==
   dependencies:
     expo "^54.0.9"
     expo-image "^3.0.8"

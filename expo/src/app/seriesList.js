@@ -18,13 +18,19 @@ export default function SeriesListPage() {
 
     return (
         <C.View>
-            <C.SnowGrid focusStart focusKey="page-entry" itemsPerRow={config.booksPerRow} items={seriesList} renderItem={(item) => {
-                const thumbnail = apiClient.getSeriesThumbnail(item.id)
-                return <C.SnowImageButton
-                    title={item.name}
-                    imageSource={thumbnail}
-                    onPress={routes.func(routes.bookList, { seriesId: item.id, seriesName: item.name })} />
-            }} />
+            <C.SnowGrid
+                focusStart
+                focusKey="page-entry"
+                itemsPerRow={config.booksPerRow}
+                itemsPerPage={config.booksPerPage}
+                items={seriesList}
+                renderItem={(item) => {
+                    const thumbnail = apiClient.getSeriesThumbnail(item.id)
+                    return <C.SnowImageButton
+                        title={item.name}
+                        imageSource={thumbnail}
+                        onPress={routes.func(routes.bookList, { seriesId: item.id, seriesName: item.name })} />
+                }} />
         </C.View>
     )
 }

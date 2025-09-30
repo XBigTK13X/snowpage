@@ -7,6 +7,7 @@ class Config {
         this.clientDevBuildNumber = 1
 
         this.booksPerRow = Platform.OS === 'web' ? 4 : 5
+        this.booksPerPage = Platform.OS === 'web' ? 20 : 25
     }
 }
 
