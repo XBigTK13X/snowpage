@@ -1,19 +1,15 @@
 import C from '../common'
 import { config } from '../settings'
 export default function LibraryListPage() {
-    const { routes, apiClient } = C.useAppContext()
     const { pushFocusLayer, popFocusLayer } = C.useFocusContext()
-    const [focusCleared, setFocusCleared] = C.React.useState(false)
+    const { routes, apiClient } = C.useAppContext()
 
     C.React.useEffect(() => {
-        if (!focusCleared) {
-            pushFocusLayer("index")
-            setFocusCleared(true)
-            return () => {
-                popFocusLayer()
-            }
+        pushFocusLayer("index")
+        return () => {
+            popFocusLayer()
         }
-    })
+    }, [])
 
     const [libraryList, setLibraryList] = C.React.useState(null)
 

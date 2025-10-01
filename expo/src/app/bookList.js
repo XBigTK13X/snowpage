@@ -1,8 +1,16 @@
 import C from '../common'
 export default function BookListPage() {
+    const { pushFocusLayer, popFocusLayer } = C.useFocusContext()
     const { routes, apiClient, config } = C.useAppContext()
     const localParams = C.useLocalSearchParams()
     const [bookList, setBookList] = C.React.useState(null)
+
+    C.React.useEffect(() => {
+        pushFocusLayer("bookList")
+        return () => {
+            popFocusLayer()
+        }
+    }, [])
 
     C.React.useEffect(() => {
         if (!bookList) {

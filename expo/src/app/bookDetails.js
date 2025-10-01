@@ -1,9 +1,5 @@
 import C from '../common'
-import { TVEventHandler, useTVEventHandler, Pressable } from 'react-native';
-
-import { Dimensions } from "react-native";
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+import { useTVEventHandler, Pressable } from 'react-native';
 
 export default function BookDetailsPage() {
     const { routes, apiClient } = C.useAppContext()
@@ -16,7 +12,6 @@ export default function BookDetailsPage() {
     const [pageNumber, setPageNumber] = C.React.useState(1)
     const pageNumberRef = C.React.useRef(1)
     const maxPageNumberRef = C.React.useRef(2)
-
 
     C.React.useEffect(() => {
         if (!pages) {

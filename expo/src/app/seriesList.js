@@ -1,8 +1,16 @@
 import C from '../common'
 export default function SeriesListPage() {
+    const { pushFocusLayer, popFocusLayer } = C.useFocusContext()
     const { routes, apiClient, config } = C.useAppContext()
     const localParams = C.useLocalSearchParams()
     const [seriesList, setSeriesList] = C.React.useState(null)
+
+    C.React.useEffect(() => {
+        pushFocusLayer("seriesList")
+        return () => {
+            popFocusLayer()
+        }
+    }, [])
 
     C.React.useEffect(() => {
         if (!seriesList) {
