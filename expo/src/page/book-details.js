@@ -1,9 +1,16 @@
 import C from '../common'
-import { useTVEventHandler, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 
 export default function BookDetailsPage() {
-    const { routes, apiClient } = C.useAppContext()
-    const localParams = C.useLocalSearchParams()
+    const {
+        currentRoute,
+        pushModal,
+        popModal,
+        navPop,
+        addActionListener,
+        removeActionListener
+    } = C.useSnowContext()
+    const { apiClient } = C.useAppContext()
     const [pages, setPages] = C.React.useState(null)
     const [showTwoPages, setShowTwoPages] = C.React.useState(false)
     const showTwoPagesRef = C.React.useRef(showTwoPages)
@@ -15,7 +22,7 @@ export default function BookDetailsPage() {
 
     C.React.useEffect(() => {
         if (!pages) {
-            apiClient.getPageList(localParams.bookId).then((response) => {
+            apiClient.getPageList(currentRoute.routeParams.bookId).then((response) => {
                 setPages(response)
                 maxPageNumberRef.current = response.length
             })
@@ -40,7 +47,7 @@ export default function BookDetailsPage() {
             setPageNumber(page + diff)
         }
         else {
-            routes.back()
+            navPop()
         }
     }
 
@@ -52,60 +59,11 @@ export default function BookDetailsPage() {
             setPageNumber(page - diff)
         }
         else {
-            routes.back()
+            navPop()
         }
     }
 
-    if (C.isTV) {
-        const tvRemoteHandler = evt => {
-            if (evt.eventType === 'right' || evt.eventType === 'select') {
-                nextPage()
-            }
-            else if (evt.eventType === 'left') {
-                previousPage()
-            }
-            else if (evt.eventType === 'up') {
-                setShowTwoPages(!showTwoPagesRef.current)
-            }
-            else if (evt.eventType === 'down') {
-                setShowCount(!showCountRef.current)
-            }
-        };
-        useTVEventHandler(tvRemoteHandler);
-    }
-
-    if (C.isWeb) {
-        C.React.useEffect(() => {
-            const focusKeyboardHandler = (event) => {
-                switch (event.key) {
-                    case 'ArrowUp':
-                        setShowTwoPages(!showTwoPagesRef.current)
-                        break
-                    case 'ArrowDown':
-                        setShowCount(!showCountRef.current)
-                        break
-                    case 'ArrowLeft':
-                        previousPage()
-                        break
-                    case 'ArrowRight':
-                        nextPage()
-                        break
-                    default:
-                        break
-                }
-            };
-            window.addEventListener('keydown', focusKeyboardHandler);
-            return () => {
-                window.removeEventListener('keydown', focusKeyboardHandler);
-            };
-        }, []);
-    }
-
-    if (!pages) {
-        return <C.SnowText>Loading pages...</C.SnowText>
-    }
-
-    const imageSource = apiClient.getPage(localParams.bookId, pageNumber)
+    const imageSource = apiClient.getPage(currentRoute.routeParams.bookId, pageNumber)
     let images = (
         < C.Image
             style={{
@@ -117,7 +75,7 @@ export default function BookDetailsPage() {
     )
     if (showTwoPages) {
         if (pageNumber + 1 < pages.length) {
-            const secondImageSource = apiClient.getPage(localParams.bookId, pageNumber + 1)
+            const secondImageSource = apiClient.getPage(currentRoute.routeParams.bookId, pageNumber + 1)
             images = (
                 <C.View
                     style={{
@@ -143,9 +101,13 @@ export default function BookDetailsPage() {
 
     let countDisplay = null
     if (showCount) {
-        countDisplay = <C.SnowText style={{ margin: 0, padding: 0, backgroundColor: 'black', color: 'white' }}>
-            {`Page ${pageNumber} of ${pages.length}`}
-        </C.SnowText>
+        countDisplay = (
+            <C.View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                <C.SnowText style={{ margin: 0, padding: 15, backgroundColor: 'black', color: 'white' }}>
+                    {`Page ${pageNumber} of ${pages.length}`}
+                </C.SnowText>
+            </C.View>
+        )
     }
 
     if (!C.isTV) {
@@ -165,12 +127,53 @@ export default function BookDetailsPage() {
         )
     }
 
-    return (
-        <C.Modal
-            style={{ flex: 1, backgroundColor: 'black' }}
-            onRequestClose={() => { routes.back() }} >
-            {countDisplay}
-            {images}
-        </ C.Modal>
-    )
+    C.React.useEffect(() => {
+        const actionListenerKey = addActionListener({
+            onPress: () => {
+                nextPage()
+            },
+            onRight: () => {
+                nextPage()
+            },
+            onLeft: () => {
+                previousPage()
+            },
+            onUp: () => {
+                setShowTwoPages(!showTwoPagesRef.current)
+            },
+            onDown: () => {
+                setShowCount(!showCountRef.current)
+            }
+        })
+        return () => {
+            removeActionListener(actionListenerKey)
+        }
+    }, [])
+
+    C.React.useEffect(() => {
+        pushModal({
+            props: {
+                focusLayer: "book-pages",
+                onRequestClose: () => {
+                    navPop()
+                }
+            },
+            render: () => {
+                if (!pages) {
+                    return <C.SnowText>Loading pages...</C.SnowText>
+                }
+                return (
+                    <>
+                        {countDisplay}
+                        {images}
+                    </>
+                )
+            }
+        })
+        return () => {
+            popModal()
+        }
+    }, [pages, pageNumber, showTwoPages, showCount])
+
+    return null
 }

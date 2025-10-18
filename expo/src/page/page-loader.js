@@ -1,6 +1,8 @@
 import C from '../common'
 import Snow from 'expo-snowui'
 import { AppContextProvider, useAppContext } from '../app-context'
+import { routes } from '../routes'
+import { pages } from '../pages'
 
 const styles = {
     header: {
@@ -10,6 +12,7 @@ const styles = {
 }
 
 function Header() {
+    const { navPush } = C.useSnowContext()
     const { routes } = useAppContext()
 
     return (
@@ -19,12 +22,13 @@ function Header() {
                     focusKey="home-button"
                     focusDown="page-entry"
                     title={`Home`}
-                    onPress={routes.func(routes.landing)}
+                    onPress={navPush(routes.libraryList, true)}
                 />
             </C.SnowGrid>
         </C.View>
     )
 }
+
 
 const appStyle = {
     color: {
@@ -33,20 +37,36 @@ const appStyle = {
         textDark: 'rgb(10, 10, 10)',
         active: 'rgb(150, 150, 150)',
         hover: 'rgb(219, 158, 44)',
+        hoverDark: 'rgba(136, 101, 61, 1)',
         core: 'rgba(105, 127, 255, 1)',
         coreDark: 'rgb(81, 92, 154)',
         outlineDark: 'rgb(63, 63, 63)',
-        transparentDark: 'rgba(0,0,0,0.6)'
+        fade: 'rgb(23, 23, 23)',
+        transparentDark: 'rgba(0,0,0,0.6)',
+        panel: 'rgb(50,50,50)'
     }
 }
 
-export default function RootLayout() {
+function PageWrapper() {
+    const { CurrentPage, currentRoute } = Snow.useSnowContext()
+    return <CurrentPage />
+}
+
+export default function PageLoader() {
     return (
-        <Snow.App DEBUG_FOCUS={false} snowStyle={appStyle}>
-            <AppContextProvider style={{ flex: 1 }}>
-                <Header />
-                <C.Slot style={{ flex: 1 }} />
+        <Snow.App
+            snowStyle={appStyle}
+            routePaths={routes}
+            routePages={pages}
+            initialRoutePath={routes.libraryList}
+        >
+            <AppContextProvider>
+                <C.View style={{ flex: 1, marginBottom: 50 }}>
+                    <Header />
+                    <PageWrapper />
+                </C.View>
             </AppContextProvider >
-        </Snow.App>
+        </Snow.App >
     )
 }
+

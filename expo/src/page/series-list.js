@@ -1,20 +1,12 @@
 import C from '../common'
 export default function SeriesListPage() {
-    const { pushFocusLayer, popFocusLayer } = C.useFocusContext()
+    const { navPush, currentRoute } = C.useSnowContext()
     const { routes, apiClient, config } = C.useAppContext()
-    const localParams = C.useLocalSearchParams()
     const [seriesList, setSeriesList] = C.React.useState(null)
 
     C.React.useEffect(() => {
-        pushFocusLayer("seriesList")
-        return () => {
-            popFocusLayer()
-        }
-    }, [])
-
-    C.React.useEffect(() => {
         if (!seriesList) {
-            apiClient.getSeriesList(localParams.libraryId).then((response) => {
+            apiClient.getSeriesList(currentRoute.routeParams.libraryId).then((response) => {
                 setSeriesList(response.content)
             })
         }
@@ -25,7 +17,7 @@ export default function SeriesListPage() {
     }
 
     return (
-        <C.View>
+        <>
             <C.SnowGrid
                 focusStart
                 focusKey="page-entry"
@@ -37,8 +29,8 @@ export default function SeriesListPage() {
                     return <C.SnowImageButton
                         title={item.name}
                         imageSource={thumbnail}
-                        onPress={routes.func(routes.bookList, { seriesId: item.id, seriesName: item.name })} />
+                        onPress={navPush(routes.bookList, { seriesId: item.id, seriesName: item.name }, true)} />
                 }} />
-        </C.View>
+        </>
     )
 }

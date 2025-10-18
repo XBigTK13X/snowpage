@@ -1,16 +1,9 @@
 import C from '../common'
 import { config } from '../settings'
 export default function LibraryListPage() {
-    const { pushFocusLayer, popFocusLayer } = C.useFocusContext()
+    const { navPush } = C.useSnowContext()
     const { routes, apiClient } = C.useAppContext()
     const [libraryList, setLibraryList] = C.React.useState(null)
-
-    C.React.useEffect(() => {
-        pushFocusLayer("index")
-        return () => {
-            popFocusLayer()
-        }
-    }, [])
 
     C.React.useEffect(() => {
         if (!libraryList && apiClient) {
@@ -29,17 +22,17 @@ export default function LibraryListPage() {
     }
 
     return (
-        <C.View>
+        <>
             <C.SnowGrid focusStart focusKey="page-entry" items={libraryList} renderItem={(item) => {
                 return <C.SnowTextButton
                     title={item.name}
-                    onPress={routes.func(routes.seriesList, { libraryId: item.id })} />
+                    onPress={navPush(routes.seriesList, { libraryId: item.id }, true)} />
             }} />
             <C.SnowText style={{
                 position: 'absolute',
                 right: 30,
                 bottom: -250
             }}>{`v${config.clientVersion} - built ${config.clientBuildDate}`}</C.SnowText>
-        </C.View>
+        </>
     )
 }

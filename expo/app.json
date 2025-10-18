@@ -15,8 +15,7 @@
           },
           "ios": {}
         }
-      ],
-      "expo-router"
+      ]
     ],
     "android": {
       "edgeToEdgeEnabled": true,

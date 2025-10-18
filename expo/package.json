@@ -1,7 +1,6 @@
 {
   "name": "snowpage",
-    "version": "1.2.4",
-  "main": "expo-router/entry",
+  "version": "1.2.4",
   "scripts": {
     "start": "EXPO_TV=1 expo start",
     "android": "EXPO_TV=1 expo run:android",
@@ -17,9 +16,7 @@
     "expo-constants": "18.0.8",
     "expo-image": "3.0.8",
     "expo-linking": "8.0.8",
-    "expo-router": "6.0.4",
-    "expo-secure-store": "^15.0.7",
-    "expo-snowui": "1.1.13",
+    "expo-snowui": "1.5.15",
     "expo-splash-screen": "31.0.10",
     "expo-status-bar": "3.0.8",
     "react": "19.1.0",

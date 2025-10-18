@@ -1,32 +1,24 @@
 import C from '../common'
 export default function BookListPage() {
-    const { pushFocusLayer, popFocusLayer } = C.useFocusContext()
+    const { navPush, currentRoute } = C.useSnowContext()
     const { routes, apiClient, config } = C.useAppContext()
-    const localParams = C.useLocalSearchParams()
     const [bookList, setBookList] = C.React.useState(null)
 
     C.React.useEffect(() => {
-        pushFocusLayer("bookList")
-        return () => {
-            popFocusLayer()
-        }
-    }, [])
-
-    C.React.useEffect(() => {
         if (!bookList) {
-            apiClient.getBookList(localParams.seriesId).then((response) => {
+            apiClient.getBookList(currentRoute.routeParams.seriesId).then((response) => {
                 setBookList(response.content)
             })
         }
     })
 
     if (!bookList) {
-        return <C.SnowText>Loading books from {localParams.seriesName}...</C.SnowText>
+        return <C.SnowText>Loading books from {currentRoute.routeParams.seriesName}...</C.SnowText>
     }
 
     return (
-        <C.View>
-            <C.SnowLabel center>{localParams.seriesName}</C.SnowLabel>
+        <>
+            <C.SnowLabel center>{currentRoute.routeParams.seriesName}</C.SnowLabel>
             <C.SnowGrid
                 focusStart
                 focusKey="page-entry"
@@ -43,8 +35,8 @@ export default function BookListPage() {
                     return <C.SnowImageButton
                         title={title}
                         imageSource={thumbnail}
-                        onPress={routes.func(routes.bookDetails, { bookId: item.id })} />
+                        onPress={navPush(routes.bookDetails, { bookId: item.id }, true)} />
                 }} />
-        </C.View>
+        </>
     )
 }

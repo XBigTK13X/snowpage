@@ -20,40 +20,52 @@ export function useAppContext() {
 }
 
 export function AppContextProvider(props) {
-    const { SnowStyle } = Snow.useStyleContext(props)
+    const { SnowStyle } = Snow.useSnowContext(props)
     const [apiError, setApiError] = React.useState(null)
     const onApiError = (err) => {
         if (!apiError) {
             setApiError(err)
         }
     }
+
     const apiClient = new ApiClient({ onApiError })
 
+    const styles = {
+        prompt: {
+            backgroundColor: SnowStyle.color.background,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center'
+        }
+    }
 
-    if (apiError) {
-        const styles = {
-            prompt: {
-                backgroundColor: SnowStyle.color.background,
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center'
+    React.useEffect(() => {
+        if (apiError) {
+            pushModal({
+                props: {
+                    focusLayer: "api-error",
+                    onRequestClose: () => {
+                        setApiError(null)
+                    }
+                },
+                render: () => {
+                    return (
+                        <View style={styles.prompt}>
+                            <Snow.Text>Unable to communicate with Snowpage.</Snow.Text>
+                            <Snow.Text>Check if your Wi-Fi is disconnected, ethernet unplugged, or if the Snowstream server is down.</Snow.Text>
+                            <Snow.Grid itemsPerRow={2}>
+                                <Snow.TextButton title="Try to Reload" onPress={() => { setApiError(null) }} />
+                            </Snow.Grid>
+                        </View>
+                    )
+                }
+            })
+            return () => {
+                popModal()
             }
         }
-        return (
-            <Modal navigationBarTranslucent statusBarTranslucent>
-                <View style={styles.prompt}>
-                    <Snow.Text>Unable to communicate with Snowpage.</Snow.Text>
-                    <Snow.Text>Check if your Wi-Fi is disconnected, ethernet unplugged, or if the Snowstream server is down.</Snow.Text>
-                    <View>
-                        <Snow.Grid itemsPerRow={2}>
-                            <Snow.TextButton title="Try to Reload" onPress={() => { setApiError(null) }} />
-                        </Snow.Grid>
-                    </View>
-                </View>
-            </Modal>
-        )
-    }
+    }, [apiError, apiClient])
 
     const appContext = {
         config,
