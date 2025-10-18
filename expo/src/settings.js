@@ -2,8 +2,8 @@ import { Platform } from 'react-native'
 
 class Config {
     constructor() {
-        this.clientVersion = "1.2.4"
-        this.clientBuildDate = "September 30, 2025"
+        this.clientVersion = "1.3.0"
+        this.clientBuildDate = "October 17, 2025"
         this.clientDevBuildNumber = 1
 
         this.booksPerRow = Platform.OS === 'web' ? 4 : 5
