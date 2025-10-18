@@ -3,6 +3,7 @@ import { config } from '../settings'
 export default function LibraryListPage() {
     const { pushFocusLayer, popFocusLayer } = C.useFocusContext()
     const { routes, apiClient } = C.useAppContext()
+    const [libraryList, setLibraryList] = C.React.useState(null)
 
     C.React.useEffect(() => {
         pushFocusLayer("index")
@@ -10,8 +11,6 @@ export default function LibraryListPage() {
             popFocusLayer()
         }
     }, [])
-
-    const [libraryList, setLibraryList] = C.React.useState(null)
 
     C.React.useEffect(() => {
         if (!libraryList && apiClient) {

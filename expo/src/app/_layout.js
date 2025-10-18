@@ -10,7 +10,7 @@ const styles = {
 }
 
 function Header() {
-    const { routes, belowHeaderElement } = useAppContext()
+    const { routes } = useAppContext()
 
     return (
         <C.View style={styles.header}>
