@@ -8,7 +8,9 @@ export default function BookDetailsPage() {
         popModal,
         navPop,
         addActionListener,
-        removeActionListener
+        removeActionListener,
+        openOverlay,
+        closeOverlay
     } = C.useSnowContext()
     const { apiClient } = C.useAppContext()
     const [pages, setPages] = C.React.useState(null)
@@ -129,9 +131,6 @@ export default function BookDetailsPage() {
 
     C.React.useEffect(() => {
         const actionListenerKey = addActionListener({
-            onPress: () => {
-                nextPage()
-            },
             onRight: () => {
                 nextPage()
             },
@@ -153,7 +152,7 @@ export default function BookDetailsPage() {
     C.React.useEffect(() => {
         pushModal({
             props: {
-                focusLayer: "book-pages",
+                assignFocus: false,
                 onRequestClose: () => {
                     navPop()
                 }
@@ -170,8 +169,17 @@ export default function BookDetailsPage() {
                 )
             }
         })
+        openOverlay({
+            props: {
+                focusStart: true,
+                focusKey: "book-overlay",
+                focusLayer: "book-overlay",
+                onPress: nextPage
+            }
+        })
         return () => {
             popModal()
+            closeOverlay()
         }
     }, [pages, pageNumber, showTwoPages, showCount])
 
