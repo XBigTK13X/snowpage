@@ -1,7 +1,7 @@
 import C from '../common'
 import { Pressable } from 'react-native';
 
-export default function BookDetailsPage() {
+export default function BookDetailsPage(props) {
     const {
         currentRoute,
         pushModal,
@@ -173,7 +173,6 @@ export default function BookDetailsPage() {
             props: {
                 focusStart: true,
                 focusKey: "book-overlay",
-                focusLayer: "book-overlay",
                 onPress: nextPage
             }
         })

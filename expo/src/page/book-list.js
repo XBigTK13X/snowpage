@@ -1,5 +1,6 @@
 import C from '../common'
-export default function BookListPage() {
+
+export default function BookListPage(props) {
     const { navPush, currentRoute } = C.useSnowContext()
     const { routes, apiClient, config } = C.useAppContext()
     const [bookList, setBookList] = C.React.useState(null)
@@ -17,7 +18,7 @@ export default function BookListPage() {
     }
 
     return (
-        <>
+        <C.SnowView {...props}>
             <C.SnowLabel center>{currentRoute.routeParams.seriesName}</C.SnowLabel>
             <C.SnowGrid
                 focusStart
@@ -35,8 +36,8 @@ export default function BookListPage() {
                     return <C.SnowImageButton
                         title={title}
                         imageSource={thumbnail}
-                        onPress={navPush(routes.bookDetails, { bookId: item.id }, true)} />
+                        onPress={navPush({ path: routes.bookDetails, params: { bookId: item.id } })} />
                 }} />
-        </>
+        </C.SnowView>
     )
 }

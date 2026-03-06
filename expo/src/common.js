@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { Image } from 'expo-image'
-
 import {
     Linking,
     Platform,
@@ -29,6 +27,8 @@ import {
     SnowLabel,
     SnowText,
     SnowTextButton,
+    SnowView,
+    Image,
     useSnowContext
 } from 'expo-snowui'
 
@@ -57,6 +57,7 @@ export default {
     SnowLabel,
     SnowText,
     SnowTextButton,
+    SnowView,
     Text,
     TouchableOpacity,
     View,

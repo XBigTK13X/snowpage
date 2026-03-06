@@ -11,21 +11,24 @@ const styles = {
     }
 }
 
-function Header() {
-    const { navPush } = C.useSnowContext()
+function Header(props) {
+    const { navPush, CurrentPage, currentRoute } = C.useSnowContext()
     const { routes } = useAppContext()
 
+    if (currentRoute?.routePath === '/' || currentRoute?.routePath === routes.libraryList) {
+        return null
+    }
+
     return (
-        <C.View style={styles.header}>
+        <C.SnowView style={styles.header} {...props}>
             <C.SnowGrid itemsPerRow={3} scroll={false}>
                 <C.SnowTextButton
                     focusKey="home-button"
-                    focusDown="page-entry"
                     title={`Home`}
-                    onPress={navPush(routes.libraryList, true)}
+                    onPress={navPush({ path: routes.libraryList })}
                 />
             </C.SnowGrid>
-        </C.View>
+        </C.SnowView>
     )
 }
 
@@ -47,26 +50,30 @@ const appStyle = {
     }
 }
 
-function PageWrapper() {
+const SnowApp = Snow.createSnowApp({
+    enableSentry: false
+})
+
+function PageWrapper(props) {
     const { CurrentPage, currentRoute } = Snow.useSnowContext()
-    return <CurrentPage />
+    return <CurrentPage {...props} />
 }
 
 export default function PageLoader() {
     return (
-        <Snow.App
+        <SnowApp
             snowStyle={appStyle}
             routePaths={routes}
             routePages={pages}
             initialRoutePath={routes.libraryList}
         >
             <AppContextProvider>
-                <C.View style={{ flex: 1, marginBottom: 50 }}>
+                <C.SnowView style={{ flex: 1, marginBottom: 50 }}>
                     <Header />
                     <PageWrapper />
-                </C.View>
+                </C.SnowView>
             </AppContextProvider >
-        </Snow.App >
+        </SnowApp >
     )
 }
 

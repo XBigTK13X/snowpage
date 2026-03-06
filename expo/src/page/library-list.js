@@ -1,6 +1,7 @@
 import C from '../common'
 import { config } from '../settings'
-export default function LibraryListPage() {
+
+export default function LibraryListPage(props) {
     const { navPush } = C.useSnowContext()
     const { routes, apiClient } = C.useAppContext()
     const [libraryList, setLibraryList] = C.React.useState(null)
@@ -22,17 +23,17 @@ export default function LibraryListPage() {
     }
 
     return (
-        <>
+        <C.SnowView {...props}>
             <C.SnowGrid focusStart focusKey="page-entry" items={libraryList} renderItem={(item) => {
                 return <C.SnowTextButton
                     title={item.name}
-                    onPress={navPush(routes.seriesList, { libraryId: item.id }, true)} />
+                    onPress={navPush({ path: routes.seriesList, params: { libraryId: item.id } })} />
             }} />
             <C.SnowText style={{
                 position: 'absolute',
                 right: 30,
                 bottom: -250
             }}>{`v${config.clientVersion} - built ${config.clientBuildDate}`}</C.SnowText>
-        </>
+        </C.SnowView>
     )
 }
