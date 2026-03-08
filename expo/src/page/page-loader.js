@@ -15,7 +15,7 @@ function Header(props) {
     const { navPush, CurrentPage, currentRoute } = C.useSnowContext()
     const { routes } = useAppContext()
 
-    if (currentRoute?.routePath === '/' || currentRoute?.routePath === routes.libraryList) {
+    if (currentRoute?.routePath === '/' || currentRoute?.routePath === routes.libraryList || currentRoute?.routePath === routes.bookDetails) {
         return null
     }
 
@@ -62,6 +62,8 @@ function PageWrapper(props) {
 export default function PageLoader() {
     return (
         <SnowApp
+            DEBUG_FOCUS={true}
+            DEBUG_FOCUS_TREE={true}
             snowStyle={appStyle}
             routePaths={routes}
             routePages={pages}

@@ -123,7 +123,7 @@ export default function BookDetailsPage(props) {
             }
         }
         images = (
-            <Pressable style={{ flex: 1 }} onPress={tapBook}>
+            <Pressable style={{ flex: 1 }}>
                 {images}
             </Pressable >
         )
@@ -142,6 +142,9 @@ export default function BookDetailsPage(props) {
             },
             onDown: () => {
                 setShowCount(!showCountRef.current)
+            },
+            onPress: () => {
+                nextPage()
             }
         })
         return () => {
@@ -169,16 +172,8 @@ export default function BookDetailsPage(props) {
                 )
             }
         })
-        openOverlay({
-            props: {
-                focusStart: true,
-                focusKey: "book-overlay",
-                onPress: nextPage
-            }
-        })
         return () => {
             popModal()
-            closeOverlay()
         }
     }, [pages, pageNumber, showTwoPages, showCount])
 
