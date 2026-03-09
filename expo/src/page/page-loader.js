@@ -62,8 +62,6 @@ function PageWrapper(props) {
 export default function PageLoader() {
     return (
         <SnowApp
-            DEBUG_FOCUS={true}
-            DEBUG_FOCUS_TREE={true}
             snowStyle={appStyle}
             routePaths={routes}
             routePages={pages}
