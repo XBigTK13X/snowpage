@@ -135,6 +135,27 @@ export class ApiClient {
         return this.imageSource(`/books/${bookId}/pages/${pageNumber}`)
     }
 
+    search(query) {
+        return new Promise(resolve => {
+            let results = []
+            const seriesPayload = { "fullTextSearch": query, "condition": { "oneShot": { "operator": "isFalse" } } }
+            this.httpPost(`/series/list?size=100`, seriesPayload)
+                .then((seriesResponse) => {
+                    if (seriesResponse?.content?.length) {
+                        results.push({ name: 'Series', kind: 'series', items: seriesResponse.content })
+                    }
+                    return this.httpPost(`/books/list?size=100`, { fullTextSearch: query })
+                        .then((bookResponse) => {
+                            if (bookResponse?.content?.length) {
+                                results.push({ name: 'Book', kind: 'book', items: bookResponse.content })
+                            }
+                            return resolve(results)
+                        })
+                })
+        })
+
+    }
+
     debug() {
         console.log({ webApiUrl: this.webApiUrl, apiKey: this.apiKey })
     }

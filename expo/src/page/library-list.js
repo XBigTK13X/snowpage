@@ -22,9 +22,16 @@ export default function LibraryListPage(props) {
         return <C.SnowText>No libraries were found</C.SnowText>
     }
 
+    const entries = ['search', ...libraryList]
+
     return (
         <C.SnowView {...props}>
-            <C.SnowGrid focusStart focusKey="page-entry" items={libraryList} renderItem={(item) => {
+            <C.SnowGrid focusStart focusKey="page-entry" items={entries} renderItem={(item) => {
+                if (item === 'search') {
+                    return <C.SnowTextButton
+                        title={'Search'}
+                        onPress={navPush({ path: routes.search })} />
+                }
                 return <C.SnowTextButton
                     title={item.name}
                     onPress={navPush({ path: routes.seriesList, params: { libraryId: item.id } })} />

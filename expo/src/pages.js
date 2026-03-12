@@ -3,12 +3,14 @@ import { routes } from './routes'
 import BookDetailsPage from './page/book-details'
 import BookListPage from './page/book-list'
 import LibraryListPage from './page/library-list'
+import SearchPage from './page/search'
 import SeriesListPage from './page/series-list'
 
 export var pages = {
     [routes.bookDetails]: BookDetailsPage,
     [routes.bookList]: BookListPage,
     [routes.libraryList]: LibraryListPage,
+    [routes.search]: SearchPage,
     [routes.seriesList]: SeriesListPage
 }
 
