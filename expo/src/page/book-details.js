@@ -130,7 +130,7 @@ export default function BookDetailsPage(props) {
     }
 
     C.React.useEffect(() => {
-        const actionListenerKey = addActionListener({
+        const actionListenerKey = addActionListener('book-pages', {
             onRight: () => {
                 nextPage()
             },
