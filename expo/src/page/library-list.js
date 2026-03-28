@@ -1,5 +1,6 @@
 import C from '../common'
 import { config } from '../settings'
+const snowuiPackageInfo = require('expo-snowui/package.json')
 
 export default function LibraryListPage(props) {
     const { navPush } = C.useSnowContext()
@@ -40,7 +41,7 @@ export default function LibraryListPage(props) {
                 position: 'absolute',
                 right: 30,
                 bottom: -250
-            }}>{`v${config.clientVersion} - built ${config.clientBuildDate}`}</C.SnowText>
+            }}>{`snowpage v${config.clientVersion}\nbuilt ${config.clientBuildDate}\nsnowui v${snowuiPackageInfo.version}`}</C.SnowText>
         </C.SnowView>
     )
 }
