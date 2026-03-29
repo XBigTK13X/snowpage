@@ -41,7 +41,7 @@ export default function LibraryListPage(props) {
                 position: 'absolute',
                 right: 30,
                 bottom: -250
-            }}>{`snowpage v${config.clientVersion}\nbuilt ${config.clientBuildDate}\nsnowui v${snowuiPackageInfo.version}`}</C.SnowText>
+            }}>{`[built ${config.clientBuildDate}] [snowpage v${config.clientVersion}] [snowui v${snowuiPackageInfo.version}]`}</C.SnowText>
         </C.SnowView>
     )
 }
